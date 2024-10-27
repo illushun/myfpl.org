@@ -7,6 +7,14 @@ Route::get('/', function () {
     return view('main');
 });
 
+Route::get('/teams', function () {
+    return view('teams');
+});
+
+Route::get('/news', function () {
+    return view('news');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

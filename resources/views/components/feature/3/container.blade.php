@@ -17,7 +17,7 @@
     </div>
 
     <!-- Content -->
-    <div class="mx-auto flex w-full max-w-4xl flex-col flex-wrap justify-between gap-5 px-16 py-8 sm:flex-row md:gap-6">
+    <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-4 lg:gap-6">
 
         {{ $slot }}
 

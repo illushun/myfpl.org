@@ -1,2 +1,55 @@
+User-agent: BadBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: Sogou Spider
+Disallow: /
+
+User-agent: BlexBot
+Disallow: /
+
+User-agent: Spam Bot
+Disallow: /
+
+User-agent: QwantifyBot
+Disallow: /
+
+User-agent: AlphaBot
+Disallow: /
+
+User-agent: Exabot
+Disallow: /
+
+User-agent: MegaIndex.ru
+Disallow: /
+
+User-agent: SeznamBot
+Disallow: /
+
+User-agent: AspiegelBot
+Disallow: /
+
 User-agent: *
 Disallow:
+
+Sitemap: https://myfpl.org/sitemap.xml

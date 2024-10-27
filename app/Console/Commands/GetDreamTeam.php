@@ -36,11 +36,8 @@ class GetDreamTeam extends Command
             return;
         }
 
-        $dream_team_exists = DreamTeam::where('gameweek_id', $current_gameweek->id)->first();
-
-        if ($dream_team_exists) {
-            return;
-        }
+        // remove old data for gameweek
+        DreamTeam::where('gameweek_id', $current_gameweek->id)->delete();
 
         $dream_team = FPLHelper::getDreamTeam($current_gameweek->id);
         $validTeam = isset($dream_team["team"]);

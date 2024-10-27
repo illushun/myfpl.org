@@ -10,6 +10,7 @@ use App\Models\FixturePrediction;
 use App\Models\PlayerXg;
 use App\Models\PlayerStat;
 use App\Models\DreamTeam;
+use App\Models\PlayerNews;
 
 class IndexComponent extends Component
 {
@@ -28,6 +29,7 @@ class IndexComponent extends Component
     public $highestCleanSheets = null;
 
     public $dreamTeam = null;
+    public $recentNews = null;
 
     public function render()
     {
@@ -41,24 +43,19 @@ class IndexComponent extends Component
         $this->gameweek = FPLData::getCurrentGameweek();
 
         $this->highestExpectedGoals = PlayerXg
-            ::select(['player_xg.expected_goals', 'p.web_name'])
-                ->join('player as p', 'player_xg.player_id', '=', 'p.id')
-                ->orderBy('player_xg.expected_goals', 'desc')
+            ::with('player')
+                ->select(['expected_goals', 'player_id'])
+                ->orderBy('expected_goals', 'desc')
                 ->first();
         $this->highestExpectedAssists = PlayerXg
-            ::select(['player_xg.expected_assists', 'p.web_name'])
-                ->join('player as p', 'player_xg.player_id', '=', 'p.id')
-                ->orderBy('player_xg.expected_assists', 'desc')
+            ::with('player')
+                ->select(['expected_assists', 'player_id'])
+                ->orderBy('expected_assists', 'desc')
                 ->first();
         $this->highestExpectedGoalsPer90 = PlayerXg
-            ::select(['player_xg.expected_goals_per_90', 'p.web_name'])
-                ->join('player as p', 'player_xg.player_id', '=', 'p.id')
-                ->orderBy('player_xg.expected_goals_per_90', 'desc')
-                ->first();
-        $this->highestSavesPer90 = PlayerXg
-            ::select(['player_xg.saves_per_90', 'p.web_name'])
-                ->join('player as p', 'player_xg.player_id', '=', 'p.id')
-                ->orderBy('player_xg.saves_per_90', 'desc')
+            ::with('player')
+                ->select(['expected_goals_per_90', 'player_id'])
+                ->orderBy('expected_goals_per_90', 'desc')
                 ->first();
 
         $this->highestGoalScorer = PlayerStat
@@ -85,6 +82,13 @@ class IndexComponent extends Component
                 ->select(['points', 'position', 'player_id'])
                 ->where('gameweek_id', $this->gameweek->id)
                 ->orderBy('position', 'asc')
+                ->get();
+
+        $this->recentNews = PlayerNews
+            ::with('player')
+                ->select(['news', 'player_id'])
+                ->orderBy('created_at', 'desc')
+                ->take(3)
                 ->get();
     }
 }

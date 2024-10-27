@@ -1,15 +1,40 @@
-<div class="">
+<div>
 
     <x-large-landing />
 
     {{-- Small Stats --}}
-    <x-facts.2.container title="Top Performers" subheading="Highest performing players from the current season">
+    <x-facts.2.container
+        title="Top Performers"
+        subheading="Highest expected performing players currently">
 
-        <x-facts.2.item title="{{ $highestExpectedGoals->expected_goals }} xG" subheading="{{ $highestExpectedGoals->web_name }}" />
-        <x-facts.2.item title="{{ $highestExpectedAssists->expected_assists }} xA" subheading="{{ $highestExpectedAssists->web_name }}" />
-        <x-facts.2.item title="{{ $highestExpectedGoalsPer90->expected_goals_per_90 }} xGP90" subheading="{{ $highestExpectedGoalsPer90->web_name }}" />
+        <x-facts.2.item
+            title="{{ $highestExpectedGoals->expected_goals }} xG"
+            subheading="{{ $highestExpectedGoals->player->first_name }} {{ $highestExpectedGoals->player->second_name }}" />
+
+        <x-facts.2.item
+            title="{{ $highestExpectedAssists->expected_assists }} xA"
+            subheading="{{ $highestExpectedAssists->player->first_name }} {{ $highestExpectedAssists->player->second_name }}" />
+
+        <x-facts.2.item
+            title="{{ $highestExpectedGoalsPer90->expected_goals_per_90 }} xGP90"
+            subheading="{{ $highestExpectedGoalsPer90->player->first_name }} {{ $highestExpectedGoalsPer90->player->second_name }}" />
 
     </x-facts.2.container>
+
+    <x-feature.3.container
+        title="Recent News"
+        subheading="The latest news regarding players">
+
+        @foreach ($recentNews as $news)
+
+            <x-feature.3.item
+                title="{{ $news->player->first_name }} {{ $news->player->second_name }} ({{ $news->player->team->name }})"
+                subheading="{{ $news->news }}"
+                image="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $news->player->code }}.png" />
+
+        @endforeach
+
+    </x-feature.3.container>
 
     {{-- Goals / Assists / Clean Sheets --}}
     <x-feature.v8.container>
@@ -17,7 +42,7 @@
           <!-- Item -->
           <div class="sticky top-0 -mt-48 mb-48 rounded-t-[46px] border-t border-black bg-white px-5 py-10 sm:px-20">
             <div class="mb-14 flex gap-8 text-2xl font-bold">
-              <p class="text-indigo-400">Most Goals</p>
+              <p>Most Goals</p>
             </div>
             <div class="flex flex-col-reverse gap-8 sm:gap-20 lg:flex-row lg:items-center">
               <div class="max-w-2xl">
@@ -32,7 +57,7 @@
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Goals</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestGoalScorer->goals_scored }}</span>
+                      <span class="text-2xl font-bold text-indigo-400">{{ $highestGoalScorer->goals_scored }}</span>
                     </div>
 
                     <div class="lg:border-r border-b border-gray-400 p-8 flex flex-col lg:items-start lg:border-b-0 items-center justify-center">
@@ -58,7 +83,7 @@
           <!-- Item -->
           <div class="sticky top-24 -mt-24 mb-24 rounded-t-[46px] border-t border-black bg-white px-5 py-10 sm:px-20">
             <div class="mb-14 flex gap-8 text-2xl font-bold">
-              <p class="text-indigo-400">Most Assists</p>
+              <p>Most Assists</p>
             </div>
             <div class="flex flex-col-reverse gap-8 sm:gap-20 lg:flex-row lg:items-center">
               <div class="max-w-2xl">
@@ -73,7 +98,7 @@
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Assists</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestAssister->assists }}</span>
+                      <span class="text-2xl font-bold text-indigo-400">{{ $highestAssister->assists }}</span>
                     </div>
 
                     <div class="lg:border-r border-b border-gray-400 p-8 flex flex-col lg:items-start lg:border-b-0 items-center justify-center">
@@ -99,7 +124,7 @@
           <!-- Item -->
           <div class="sticky top-48 rounded-t-[46px] border-t border-black bg-white px-5 py-10 sm:px-20">
             <div class="mb-14 flex gap-8 text-2xl font-bold">
-              <p class="text-indigo-400">Most Clean Sheets</p>
+              <p>Most Clean Sheets</p>
             </div>
             <div class="flex flex-col-reverse gap-8 sm:gap-20 lg:flex-row lg:items-center">
               <div class="max-w-2xl">
@@ -114,7 +139,7 @@
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Clean Sheets</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestCleanSheets->clean_sheets }}</span>
+                      <span class="text-2xl font-bold text-indigo-400">{{ $highestCleanSheets->clean_sheets }}</span>
                     </div>
 
                     <div class="lg:border-r border-b border-gray-400 p-8 flex flex-col lg:items-start lg:border-b-0 items-center justify-center">
@@ -140,13 +165,15 @@
     </x-feature.v8.container>
 
     {{-- Dream Team --}}
-    <x-team.container title="Gameweek {{ $gameweek->id }} Dream Team" subheading="The most inform players from the current gameweek">
+    <x-team.container
+        title="Gameweek {{ $gameweek->id }} Dream Team"
+        subheading="The most inform players from the current gameweek">
 
         @foreach ($dreamTeam as $player)
 
             <x-team.item
                 title="{{ $player->player->first_name }} {{ $player->player->second_name }}"
-                subheading="Points: {{ $player->points }}"
+                subheading="{{ $player->points }} Point(s)"
                 image="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $player->player->code }}.png" />
 
         @endforeach
