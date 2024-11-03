@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UpdatePlayersAlert;
 
 use App\Helpers\FPL\Helper as FPLHelper;
 use App\Helpers\FPL\Season\SeasonHelper;
@@ -231,5 +233,7 @@ class UpdatePlayers extends Command
                 \Log::error("[UpdatePlayers] FPLPlayerXg: " . $e->getMessage());
             }
         }
+
+        Mail::to(env("FPL_ALERT_EMAIL"))->send(new UpdatePlayersAlert("Admin"));
     }
 }

@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ClearFPLDataAlert;
 
 use App\Jobs\ClearTeams;
 use App\Jobs\ClearPlayers;
@@ -40,6 +42,8 @@ class ClearFPLData extends Command
             new ClearPlayers,
             new ClearFixtures
         ])->dispatch();
+
+        Mail::to(env("FPL_ALERT_EMAIL"))->send(new ClearFPLDataAlert("Admin"));
         return Command::SUCCESS; 
     }
 }

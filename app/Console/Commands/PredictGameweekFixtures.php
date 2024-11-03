@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PredictGameweekFixturesAlert;
 
 use App\Helpers\FPL\Data as FPLData;
 use App\Helpers\FPL\Season\SeasonHelper;
@@ -57,5 +59,7 @@ class PredictGameweekFixtures extends Command
                 }
             }
         }
+
+        Mail::to(env("FPL_ALERT_EMAIL"))->send(new PredictGameweekFixturesAlert("Admin"));
     }
 }

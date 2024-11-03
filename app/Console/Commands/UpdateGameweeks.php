@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UpdateGameweeksAlert;
 
 use App\Helpers\FPL\Helper as FPLHelper;
 use App\Helpers\FPL\Season\SeasonHelper;
@@ -74,5 +76,7 @@ class UpdateGameweeks extends Command
                 \Log::error("[UpdateGameweeks] " . $e->getMessage());
             }
         }
+
+        Mail::to(env("FPL_ALERT_EMAIL"))->send(new UpdateGameweeksAlert("Admin"));
     }
 }

@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UpdateFixturesAlert;
 
 use App\Helpers\FPL\Helper as FPLHelper;
 use App\Helpers\FPL\Season\SeasonHelper;
@@ -164,5 +166,7 @@ class UpdateFixtures extends Command
                 }
             }
         } 
+
+        Mail::to(env("FPL_ALERT_EMAIL"))->send(new UpdateFixturesAlert("Admin"));
     }
 }

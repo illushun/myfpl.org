@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\GetDreamTeamAlert;
 
 use App\Helpers\FPL\Helper as FPLHelper;
 use App\Helpers\FPL\Season\SeasonHelper;
@@ -73,5 +75,7 @@ class GetDreamTeam extends Command
                 \Log::error("[GetDreamTeam] " . $e->getMessage());
             }
         }
+
+        Mail::to(env("FPL_ALERT_EMAIL"))->send(new GetDreamTeamAlert("Admin"));
     }
 }
