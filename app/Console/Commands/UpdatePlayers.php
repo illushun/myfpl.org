@@ -170,7 +170,7 @@ class UpdatePlayers extends Command
                 if (!$FPLPlayerNews && $player["news"]) {
                     PlayerNews::insert([
                         "player_id" => $FPLPlayer->id,
-                        "gamewee_id" => $gameweek->id,
+                        "gameweek_id" => $gameweek->id,
                         "news" => $player["news"],
                     ]);
                 } else {
