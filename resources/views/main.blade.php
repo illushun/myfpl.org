@@ -58,7 +58,7 @@
 
     <body class="font-sans antialiased">
 
-        <x-header.navigation />
+        {{-- <x-header.navigation /> --}}
 
         @livewire('index-component')
 

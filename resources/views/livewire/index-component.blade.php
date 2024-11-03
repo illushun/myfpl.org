@@ -30,7 +30,7 @@
             <x-feature.3.item
         title="{{ $news->player->first_name }} {{ $news->player->second_name }} ({{ $news->player->detail->team->name }})"
                 subheading="{{ $news->news }}"
-                image="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $news->player->code }}.png" />
+                image="{{ $news->player->detail->photo }}" />
 
         @endforeach
 
@@ -180,7 +180,7 @@
 
     </x-team.container>
 
-<footer class="block">
+{{-- <footer class="block">
   <!-- Container -->
   <div class="py-16 md:py-20 mx-auto w-full max-w-7xl px-5 md:px-10">
     <!-- Component -->
@@ -213,6 +213,6 @@
       <p class="text-sm sm:text-base"> © Copyright 2024. All rights reserved. </p>
     </div>
   </div>
-</footer>
+</footer> --}}
 
 </div>
