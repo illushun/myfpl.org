@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 use Exception;
 
 use App\Helpers\FPL\Helper as FPLHelper;
+use App\Helpers\FPL\Season\SeasonHelper;
+
 use App\Models\Gameweek;
 
 class UpdateGameweeks extends Command
@@ -37,8 +39,17 @@ class UpdateGameweeks extends Command
             return;
         }
 
+        $season = SeasonHelper::getCurrentSeason();
+        if (!$season) {
+            \Log::info("[UpdateGameweeks] Unable to get current season");
+            return;
+        }
+
         foreach ($summary["events"] as $index => $gameweek) {
-            $FPLGameweek = Gameweek::find($gameweek["id"]);
+            $FPLGameweek = Gameweek
+                ::where('season_id', $season->id)
+                    ->where('fpl_id', $gameweek["id"])
+                    ->first();
 
             if (!$FPLGameweek) {
                 \Log::info("[UpdateGameweeks] Unable to find gameweek ID: '" . $gameweek["id"] . "'");

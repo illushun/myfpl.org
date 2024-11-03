@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use App\Models\Team;
-use App\Models\PlayerRole;
+use App\Models\PlayerType;
 use App\Models\PlayerStat;
 use App\Models\PlayerXg;
 use App\Models\PlayerNews;
+use App\Models\PlayerDetail;
+use App\Models\Season;
 
 class Player extends Model
 {
@@ -26,24 +28,23 @@ class Player extends Model
      */
     protected $fillable = [
         'fpl_id',
-        'code',
-        'photo',
+        'season_id',
         'first_name',
         'second_name',
         'web_name',
-        'squad_number',
-        'status',
-        'team_id',
-        'player_type',
-        'special',
+        'type',
     ];
 
-    public function team(): HasOne {
-        return $this->hasOne(Team::class, 'id', 'team_id');
+    public function season(): HasOne {
+        return $this->hasOne(Season::class, 'id', 'season_id');        
     }
 
-    public function type(): HasOne {
-        return $this->hasOne(PlayerRole::class, 'id', 'player_type');        
+    public function detail(): HasOne {
+        return $this->hasOne(PlayerDetail::class, 'player_id');        
+    }
+
+    public function role(): HasOne {
+        return $this->hasOne(PlayerType::class, 'id', 'type');        
     }
 
     public function stats(): HasOne {
@@ -59,6 +60,6 @@ class Player extends Model
     }
 
     public function dreamTeams(): HasMany {
-        return $this->hasMany(DreamTeam::class, 'player_id', 'fpl_id');
+        return $this->hasMany(DreamTeam::class, 'player_id');
     }
 }

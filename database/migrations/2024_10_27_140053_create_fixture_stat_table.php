@@ -19,8 +19,8 @@ return new class extends Migration
             $table->smallInteger('value');
             $table->unsignedBigInteger('player_id');
 
-            $table->foreign('fixture_id')->references('id')->on('fixture');
-            $table->foreign('player_id')->references('id')->on('player');
+            $table->foreign('fixture_id')->references('id')->on('fixture')->onDelete('cascade');
+            $table->foreign('player_id')->references('id')->on('player')->onDelete('cascade');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

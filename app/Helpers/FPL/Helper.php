@@ -15,6 +15,7 @@ use Exception;
 class Helper {
     
     protected const CACHE_EXPIRE=3600; // 1 hour
+    protected const SEASON_EXPIRE=60; 
     protected const FIXTURE_EXPIRE=60;
     protected const DREAM_TEAM_EXPIRE=60;
     public const CACHE_KEY="App.Helpers.FPL";
@@ -22,6 +23,10 @@ class Helper {
     /* Keys */
     private static function _getSummaryKey(): string {
         return self::CACHE_KEY . ".Summary";
+    }
+
+    private static function _getSeasonKey(): string {
+        return self::CACHE_KEY . ".Season";
     }
 
     private static function _getFixtureKey(): string {
@@ -44,6 +49,26 @@ class Helper {
                 return [];
             }
             return $response->ok() ? $response->json() : [];
+        });
+    }
+
+    public static function getCurrentSeason(): string {
+        $cacheKey = self::_getSeasonKey();
+        return Cache::remember($cacheKey, self::SEASON_EXPIRE, function () {
+           $currentYear = date("Y");
+            $currentMonth = date("n");
+
+            // If current month is June or later, we're in the next season's start year
+            if ($currentMonth >= 6) {
+                $startYear = $currentYear;
+                $endYear = $currentYear + 1;
+            } else {
+                // If we're before June, we're still in the previous season's end year
+                $startYear = $currentYear - 1;
+                $endYear = $currentYear;
+            }
+
+            return "{$startYear}/{$endYear}"; 
         });
     }
 

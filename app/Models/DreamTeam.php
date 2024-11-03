@@ -28,7 +28,7 @@ class DreamTeam extends Model
     ];
 
     public function player(): HasOne {
-        return $this->hasOne(Player::class, 'fpl_id', 'player_id');
+        return $this->hasOne(Player::class, 'id', 'player_id');
     }
 
     public function gameweek(): HasOne {

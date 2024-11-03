@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+use App\Models\Team;
 
 class TeamStrength extends Model
 {
@@ -26,4 +29,7 @@ class TeamStrength extends Model
         'strength_defence_away',
     ];
 
+    public function team(): HasOne {
+        return $this->hasOne(Team::class, 'id', 'team_id');
+    }
 }

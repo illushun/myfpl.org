@@ -20,8 +20,8 @@ return new class extends Migration
             $table->smallInteger('points')->default(0)->index();
             $table->smallInteger('position')->default(0)->index();
 
-            $table->foreign('gameweek_id')->references('id')->on('gameweek');
-            $table->foreign('player_id')->references('fpl_id')->on('player');
+            $table->foreign('gameweek_id')->references('id')->on('gameweek')->onDelete('cascade');
+            $table->foreign('player_id')->references('id')->on('player')->onDelete('cascade');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

@@ -9,11 +9,16 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use App\Helpers\FPL\Helper as FPLHelper;
+use App\Helpers\FPL\Season\GameweekHelper;
+use App\Helpers\FPL\Season\SeasonHelper;
+
 use App\Models\Player;
+use App\Models\PlayerDetail;
 use App\Models\PlayerNews;
-use App\Models\PlayerRole;
+use App\Models\PlayerType;
 use App\Models\PlayerStat;
 use App\Models\PlayerXg;
+use App\Models\Team;
 
 class ClearPlayers implements ShouldQueue
 {
@@ -40,14 +45,28 @@ class ClearPlayers implements ShouldQueue
             return;
         }
 
-        PlayerXg::truncate();
-        PlayerStat::truncate();
-        PlayerRole::truncate();
-        PlayerNews::truncate();
-        Player::truncate();
+        $season = SeasonHelper::getCurrentSeason();
+        if (!$season) {
+            print_r("Unable to get current season\n");
+            return;
+        }
+
+        $gameweek = GameweekHelper::getCurrentGameweek();
+        if (!$gameweek) {
+            print_r("Unable to get current gameweek\n");
+            return;
+        }
+
+        //PlayerDetail::truncate();
+        //PlayerXg::truncate();
+        //PlayerStat::truncate();
+        //PlayerType::truncate();
+        //PlayerNews::truncate();
+        //Player::truncate();
+        Player::where('season_id', $season->id)->delete();
 
         foreach ($summary["element_types"] as $index => $role) {
-            PlayerRole::insert([
+            PlayerType::insert([
                 "plural_name" => $role["plural_name"],
                 "plural_name_short" => $role["plural_name_short"],
                 "singular_name" => $role["singular_name"],
@@ -63,23 +82,35 @@ class ClearPlayers implements ShouldQueue
 
         foreach ($summary["elements"] as $index => $player) {
             $hash = md5(json_encode($player));
+            $team = Team
+                ::where('fpl_id', $player["team"])
+                    ->first();
+
+            if (!$team) {
+                continue;
+            }
+
             $playerId = Player::insertGetId([
                 "fpl_id" => $player["id"],
-                "code" => $player["code"],
-                "photo" => $player["photo"],
+                "season_id" => $season->id,
                 "first_name" => $player["first_name"],
                 "second_name" => $player["second_name"],
                 "web_name" => $player["web_name"],
-                "squad_number" => $player["squad_number"],
-                "status" => $player["status"],
-                "team_id" => $player["team"],
-                "player_type" => $player["element_type"],
-                "special" => $player["special"] ? 'true' : 'false',
+                "type" => $player["element_type"],
                 "hash" => $hash
             ]); 
 
+            PlayerDetail::insert([
+                "player_id" => $playerId,
+                "code" => $player["code"],
+                "photo" => "https://resources.premierleague.com/premierleague/photos/players/110x140/p" . $player["code"] . ".png",
+                "status" => $player["status"],
+                "team_id" => $team->id,
+            ]);
+
             PlayerStat::insert([
                 "player_id" => $playerId,
+                "gameweek_id" => $gameweek->id,
                 "now_cost" => $player["now_cost"],
                 "points_per_game" => (float) $player["points_per_game"],
                 "selected_by_percent" => (float) $player["selected_by_percent"],
@@ -108,6 +139,7 @@ class ClearPlayers implements ShouldQueue
 
             PlayerXg::insert([
                 "player_id" => $playerId,
+                "gameweek_id" => $gameweek->id,
                 "expected_goals" => (float) $player["expected_goals"],
                 "expected_assists" => (float) $player["expected_assists"],
                 "expected_goal_involvements" => (float) $player["expected_goal_involvements"],

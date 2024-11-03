@@ -9,6 +9,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use App\Helpers\FPL\Helper as FPLHelper;
+use App\Helpers\FPL\Season\SeasonHelper;
+
 use App\Models\Team;
 use App\Models\TeamStrength;
 
@@ -36,24 +38,24 @@ class ClearTeams implements ShouldQueue
             print_r("invalid summary\n");
             return;
         }
+        
+        $season = SeasonHelper::getCurrentSeason();
+        if (!$season) {
+            print_r("Unable to get current season\n");
+            return;
+        }
 
-        Team::truncate();
-        TeamStrength::truncate();
+        //Team::truncate();
+        //TeamStrength::truncate();
+        Team::where('season_id', $season->id)->delete();
 
         foreach ($summary["teams"] as $index => $team) {
             $hash = md5(json_encode($team));
-            Team::insert([
-                "id" => $team["id"],
+            $teamId = Team::insertGetId([
+                "fpl_id" => $team["id"],
+                "season_id" => $season->id,
                 "name" => $team["name"],
                 "short_name" => $team["short_name"],
-                "team_division" => $team["team_division"],
-                "win" => $team["win"],
-                "draw" => $team["draw"],
-                "loss" => $team["loss"],
-                "played" => $team["played"],
-                "position" => $team["position"],
-                "points" => $team["points"],
-                "form" => (float) $team["form"],
                 "strength" => $team["strength"],
                 "code" => $team["code"],
                 "pulse_id" => $team["pulse_id"],
@@ -62,7 +64,7 @@ class ClearTeams implements ShouldQueue
             ]);
             
             TeamStrength::insert([
-                "team_id" => $team["id"],
+                "team_id" => $teamId,
                 "strength_overall_home" => $team["strength_overall_home"],
                 "strength_overall_away" => $team["strength_overall_away"],
                 "strength_attack_home" => $team["strength_attack_home"],

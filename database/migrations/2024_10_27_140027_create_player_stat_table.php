@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('player_id');
+            $table->unsignedBigInteger('gameweek_id');
+
             $table->smallInteger('now_cost')->default(0)->index();
             $table->decimal('points_per_game', total: 8, places: 2)->default(0.00)->index();
             $table->decimal('selected_by_percent', total: 8, places: 2)->default(0.00);
@@ -40,7 +42,8 @@ return new class extends Migration
             $table->decimal('threat', total: 8, places: 2)->default(0.00);
             $table->smallInteger('starts')->default(0);
 
-            $table->foreign('player_id')->references('id')->on('player');
+            $table->foreign('player_id')->references('id')->on('player')->onDelete('cascade');
+            $table->foreign('gameweek_id')->references('id')->on('gameweek')->onDelete('cascade');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

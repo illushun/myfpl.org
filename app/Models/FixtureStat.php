@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
 
 class FixtureStat extends Model
@@ -23,5 +24,9 @@ class FixtureStat extends Model
         'value',
         'player_id', // element 
     ];
+
+    public function fixture(): HasOne {
+        return $this->hasOne(Fixture::class, 'id', 'fixture_id');
+    }
 }
 

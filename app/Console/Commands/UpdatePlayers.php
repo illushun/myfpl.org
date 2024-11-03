@@ -6,10 +6,15 @@ use Illuminate\Console\Command;
 use Exception;
 
 use App\Helpers\FPL\Helper as FPLHelper;
+use App\Helpers\FPL\Season\SeasonHelper;
+use App\Helpers\FPL\Season\GameweekHelper;
+
 use App\Models\Player;
 use App\Models\PlayerNews;
 use App\Models\PlayerStat;
 use App\Models\PlayerXg;
+use App\Models\PlayerDetail;
+use App\Models\Gameweek;
 
 class UpdatePlayers extends Command
 {
@@ -40,29 +45,57 @@ class UpdatePlayers extends Command
             return;
         }
 
+        $season = SeasonHelper::getCurrentSeason();
+        if (!$season) {
+            \Log::info("[UpdatePlayers] Unable to get current season");
+            return;
+        }
+
+        $gameweek = GameweekHelper::getCurrentGameweek();
+        if (!$gameweek) {
+            \Log::info("[UpdateGameweeks] Unable to get current gameweek");
+            return;
+        }
+
         foreach ($summary["elements"] as $index => $player) {
-            $FPLPlayer = Player::where('fpl_id', $player["id"])->first();
+            $FPLPlayer = Player
+                ::where('season_id', $season->id)
+                    ->where('fpl_id', $player["id"])
+                    ->first();
 
             if (!$FPLPlayer) {
                 \Log::info("[UpdatePlayers] Creating player ID: '" . $player["id"] . "'");
+
+                $team = Team
+                    ::where('fpl_id', $player["team"])
+                        ->first();
+
+                if (!$team) {
+                    continue;
+                }
+
                 $hash = md5(json_encode($player));
                 $playerId = Player::insertGetId([
                     "fpl_id" => $player["id"],
-                    "code" => $player["code"],
-                    "photo" => $player["photo"],
+                    "season_id" => $season->id,
                     "first_name" => $player["first_name"],
                     "second_name" => $player["second_name"],
                     "web_name" => $player["web_name"],
-                    "squad_number" => $player["squad_number"],
-                    "status" => $player["status"],
-                    "team_id" => $player["team"],
-                    "player_type" => $player["element_type"],
-                    "special" => $player["special"] ? 'true' : 'false',
+                    "type" => $player["element_type"],
                     "hash" => $hash
                 ]); 
 
+                PlayerDetail::insert([
+                    "player_id" => $playerId,
+                    "code" => $player["code"],
+                    "photo" => "https://resources.premierleague.com/premierleague/photos/players/110x140/p" . $player["code"] . ".png",
+                    "status" => $player["status"],
+                    "team_id" => $team->id,
+                ]);
+
                 PlayerStat::insert([
                     "player_id" => $playerId,
+                    "gameweek_id" => $gameweek->id,
                     "now_cost" => $player["now_cost"],
                     "points_per_game" => (float) $player["points_per_game"],
                     "selected_by_percent" => (float) $player["selected_by_percent"],
@@ -91,6 +124,7 @@ class UpdatePlayers extends Command
 
                 PlayerXg::insert([
                     "player_id" => $playerId,
+                    "gameweek_id" => $gameweek->id,
                     "expected_goals" => (float) $player["expected_goals"],
                     "expected_assists" => (float) $player["expected_assists"],
                     "expected_goal_involvements" => (float) $player["expected_goal_involvements"],
@@ -114,26 +148,33 @@ class UpdatePlayers extends Command
             }
 
             try {
-                $FPLPlayer->status = $player["status"];
+                $FPLPlayerDetail = PlayerDetail::where('player_id', $FPLPlayer->id)->first();
+                $FPLPlayerDetail->status = $player["status"];
+                $FPLPlayerDetail->updated_at = date('Y-m-d H:i:s');
+                $FPLPlayerDetail->save();
+
                 $FPLPlayer->hash = $hash;
                 $FPLPlayer->updated_at = date('Y-m-d H:i:s');
                 $FPLPlayer->save();
             } catch (Exception $e) {
-                \Log::error("[UpdatePlayers] FPLPlayer: " . $e->getMessage());
+                \Log::error("[UpdatePlayers] FPLPlayerDetail: " . $e->getMessage());
             }
 
             try {
-                $FPLPlayerNews = PlayerNews::where('player_id', $FPLPlayer->id)->first();
+                $FPLPlayerNews = PlayerNews
+                    ::where('player_id', $FPLPlayer->id)
+                        ->where('gameweek_id', $gameweek->id)
+                        ->first();
+
                 // make sure news field isn't empty
                 if (!$FPLPlayerNews && $player["news"]) {
                     PlayerNews::insert([
                         "player_id" => $FPLPlayer->id,
+                        "gamewee_id" => $gameweek->id,
                         "news" => $player["news"],
                     ]);
                 } else {
-                    if (!$player["news"]) {
-                        PlayerNews::where('player_id', $FPLPlayer->id)->delete();
-                    } else {
+                    if ($player["news"]) {
                         $FPLPlayerNews->news = $player["news"];
                         $FPLPlayerNews->updated_at = date('Y-m-d H:i:s');
                         $FPLPlayerNews->save();

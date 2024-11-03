@@ -6,6 +6,9 @@ use Illuminate\Console\Command;
 use Exception;
 
 use App\Helpers\FPL\Helper as FPLHelper;
+use App\Helpers\FPL\Season\SeasonHelper;
+use App\Helpers\FPL\Season\GameweekHelper;
+
 use App\Models\Fixture;
 use App\Models\FixtureStat;
 
@@ -38,8 +41,24 @@ class UpdateFixtures extends Command
             return;
         }
 
+        $season = SeasonHelper::getCurrentSeason();
+        if (!$season) {
+            \Log::info("[UpdateGameweeks] Unable to get current season");
+            return;
+        }
+
+        $gameweek = GameweekHelper::getCurrentGameweek();
+        if (!$gameweek) {
+            \Log::info("[UpdateGameweeks] Unable to get current gameweek");
+            return;
+        }
+
         foreach ($fixtures as $index => $fixture) {
-            $FPLFixture = Fixture::where('fixture_id', $fixture["id"])->first();
+            $FPLFixture = Fixture
+                ::where('fixture_id', $fixture["id"])
+                    ->where('gameweek_id', $gameweek->id) 
+                    ->first();
+
             if (!$FPLFixture) {
                 \Log::info("[UpdateFixtures] Unable to find fixture ID: " . $fixture["id"]);
                 continue;
@@ -58,6 +77,9 @@ class UpdateFixtures extends Command
                 $FPLFixture->provisional_start_time = $fixture["provisional_start_time"] ? 'true' : 'false';
                 $FPLFixture->team_a_score = $fixture["team_a_score"];
                 $FPLFixture->team_h_score = $fixture["team_h_score"];
+                $FPLFixture->hash = $hash;
+                $FPLFixture->updated_at = date('Y-m-d H:i:s');
+                $FPLFixture->save();
             } catch (Exception $e) {
                 \Log::error("[UpdateFixtures] FPLFixture: " . $e->getMessage());
             }
@@ -72,12 +94,21 @@ class UpdateFixtures extends Command
                 $homeStats = $stat["h"];
 
                 foreach ($awayStats as $awayStatIndex => $awayStat) {
+                    $player = Player
+                        ::where('season_id', $season->id)
+                            ->where('fpl_id', $awayStat["element"])
+                            ->first();
+
+                    if (!$player) {
+                        continue;
+                    }
+
                     $validStat = FixtureStat
                         ::where('fixture_id', $FPLFixture->id)
                             ->where('identifier', $stat["identifier"])
                             ->where('team_type', "a")
                             ->where('value', $awayStat["value"])
-                            ->where('player_id', $awayStat["element"])
+                            ->where('player_id', $player->id)
                             ->first();
 
                     if ($validStat) {
@@ -90,7 +121,7 @@ class UpdateFixtures extends Command
                             "identifier" => $stat["identifier"],
                             "team_type" => "a",
                             "value" => $awayStat["value"],
-                            "player_id" => $awayStat["element"],
+                            "player_id" => $player->id,
                         ]);
                     } catch (Exception $e) {
                         \Log::error("[UpdateFixtures] FixtureStatAway: " . $e->getMessage());
@@ -98,12 +129,21 @@ class UpdateFixtures extends Command
                 }
 
                 foreach ($homeStats as $homeStatIndex => $homeStat) {
+                    $player = Player
+                        ::where('season_id', $season->id)
+                            ->where('fpl_id', $homeStat["element"])
+                            ->first();
+
+                    if (!$player) {
+                        continue;
+                    }
+                    
                     $validStat = FixtureStat
                         ::where('fixture_id', $FPLFixture->id)
                             ->where('identifier', $stat["identifier"])
                             ->where('team_type', "h")
                             ->where('value', $homeStat["value"])
-                            ->where('player_id', $homeStat["element"])
+                            ->where('player_id', $player->id)
                             ->first();
 
                     if ($validStat) {
@@ -116,7 +156,7 @@ class UpdateFixtures extends Command
                             "identifier" => $stat["identifier"],
                             "team_type" => "h",
                             "value" => $homeStat["value"],
-                            "player_id" => $homeStat["element"],
+                            "player_id" => $player->id,
                         ]);
                     } catch (Exception $e) {
                         \Log::error("[UpdateFixtures] FixtureStatHome: " . $e->getMessage());

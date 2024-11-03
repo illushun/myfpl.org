@@ -13,22 +13,16 @@ return new class extends Migration
     {
         Schema::create('player', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fpl_id')->unique();
-            $table->integer('code')->default(0);
+            $table->unsignedBigInteger('fpl_id');
+            $table->unsignedBigInteger('season_id');
 
-            $table->string('photo')->nullable()->default(null);
             $table->string('first_name', 128)->index();
             $table->string('second_name', 128)->index();
             $table->string('web_name')->index();
+            $table->unsignedBigInteger('type');
 
-            $table->smallInteger('squad_number')->nullable()->default(null);
-            $table->string('status', 32)->index();
-            $table->unsignedBigInteger('team_id');
-            $table->unsignedBigInteger('player_type');
-            $table->enum('special', ['true', 'false'])->default('false');
-
-            $table->foreign('team_id')->references('id')->on('team');
-            $table->foreign('player_type')->references('id')->on('player_role');
+            $table->foreign('type')->references('id')->on('player_type')->onDelete('cascade');
+            $table->foreign('season_id')->references('id')->on('season')->onDelete('cascade');
 
             $table->string('hash')->nullable()->default(null);
             $table->timestamp('created_at')->useCurrent();

@@ -33,9 +33,7 @@ class IndexComponent extends Component
 
     public function render()
     {
-        $teams = FPLData::getTopTeams();
-        $players = FPLData::getTopPlayers();
-        return view('livewire.index-component', compact('teams', 'players'));
+        return view('livewire.index-component');
     }
 
     public function mount() 
@@ -71,7 +69,7 @@ class IndexComponent extends Component
         $this->highestCleanSheets = PlayerStat
             ::with('player')
                 ->whereHas('player', function ($query) {
-                    $query->where('player_type', 1);
+                    $query->where('type', 1);
                 })
                 ->select(['clean_sheets', 'player_id'])
                 ->orderBy('clean_sheets', 'desc')

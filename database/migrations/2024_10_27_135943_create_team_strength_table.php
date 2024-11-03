@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('team_id');
 
-            $table->foreign('team_id')->references('id')->on('team');
+            $table->foreign('team_id')->references('id')->on('team')->onDelete('cascade');
 
             $table->integer('strength_overall_home')->default(0)->index();
             $table->integer('strength_overall_away')->default(0)->index();

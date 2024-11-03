@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use App\Models\Fixture;
+use App\Models\Season;
 use App\Models\FixtureStat;
 use App\Models\TeamStrength;
 
@@ -23,6 +24,8 @@ class Team extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'fpl_id',
+        'season_id',
         'name',
         'short_name',
         'team_division',
@@ -38,6 +41,10 @@ class Team extends Model
         'pulse_id',
         'unavailable'
     ];
+
+    public function season(): HasOne {
+        return $this->hasOne(Season::class);
+    }
 
     public function strengthStats(): HasOne {
         return $this->hasOne(TeamStrength::class);

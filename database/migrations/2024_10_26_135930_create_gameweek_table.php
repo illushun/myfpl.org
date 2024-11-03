@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('gameweek', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('fpl_id');
+            $table->unsignedBigInteger('season_id');
+
             $table->string('name', 12)->nullable()->default(null);
             $table->unsignedBigInteger('deadline')->nullable()->default(null);
             $table->integer('deadline_offset')->default(0);
             $table->enum('is_previous', ['true', 'false'])->default('false')->index();
             $table->enum('is_current', ['true', 'false'])->default('false')->index();
             $table->enum('is_next', ['true', 'false'])->default('false')->index();            
+
+            $table->foreign('season_id')->references('id')->on('season')->onDelete('cascade');
 
             $table->string('hash')->nullable()->default(null);
             $table->timestamp('created_at')->useCurrent();

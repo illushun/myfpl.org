@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use App\Models\Player;
+use App\Models\Gameweek;
 
 class PlayerStat extends Model
 {
@@ -21,6 +22,7 @@ class PlayerStat extends Model
      */
     protected $fillable = [
         'player_id',
+        'gameweek_id',
         'now_cost',
         'points_per_game',
         'selected_by_percent',
@@ -49,5 +51,9 @@ class PlayerStat extends Model
 
     public function player(): HasOne {
         return $this->hasOne(Player::class, 'id', 'player_id');
+    }
+
+    public function gameweek(): HasOne {
+        return $this->hasOne(Gameweek::class, 'id', 'gameweek_id');
     }
 }

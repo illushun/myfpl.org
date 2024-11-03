@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('team_id');
             $table->enum('outcome', ['win', 'draw', 'loss'])->index();
 
-            $table->foreign('gameweek_id')->references('id')->on('gameweek');
-            $table->foreign('fixture_id')->references('id')->on('fixture');
-            $table->foreign('team_id')->references('id')->on('team');
+            $table->foreign('gameweek_id')->references('id')->on('gameweek')->onDelete('cascade');
+            $table->foreign('fixture_id')->references('id')->on('fixture')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('team')->onDelete('cascade');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

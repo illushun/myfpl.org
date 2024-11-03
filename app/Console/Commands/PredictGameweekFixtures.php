@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 use Exception;
 
 use App\Helpers\FPL\Data as FPLData;
+use App\Helpers\FPL\Season\SeasonHelper;
+
 use App\Models\Gameweek;
 use App\Models\FixturePrediction;
 

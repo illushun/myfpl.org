@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use App\Models\Player;
+use App\Models\Gameweek;
 
 class PlayerXg extends Model
 {
@@ -21,6 +22,7 @@ class PlayerXg extends Model
      */
     protected $fillable = [
         'player_id',
+        'gameweek_id',
         'expected_goals',
         'expected_assists',
         'expected_goal_involvements',
@@ -39,4 +41,7 @@ class PlayerXg extends Model
         return $this->hasOne(Player::class, 'id', 'player_id');
     }
 
+    public function gameweek(): HasOne {
+        return $this->hasOne(Gameweek::class, 'id', 'gameweek_id');
+    }
 }

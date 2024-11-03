@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('player_role', function (Blueprint $table) {
+        Schema::create('player_type', function (Blueprint $table) {
             $table->id();
             
             $table->string('plural_name', 64);

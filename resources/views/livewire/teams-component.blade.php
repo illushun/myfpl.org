@@ -3,6 +3,8 @@
 
 <x-collection.filtering.container title="Teams" subheading="Current Premier League {{ date('Y') }} Team List">
 
+    @include('livewire.teams.components.filters')
+
     @foreach ($teams as $team)
 
         <x-collection.item

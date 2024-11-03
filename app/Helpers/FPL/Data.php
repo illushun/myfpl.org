@@ -69,7 +69,7 @@ class Data {
         $cacheKey = self::_getTeamKey(). ".Top";
         return Cache::remember($cacheKey, self::TEAM_EXPIRE, function () {
             return Team
-                ::orderBy('position', 'desc')
+                ::orderBy('fpl_id', 'asc')
                     ->orderBy('name', 'asc')
                     ->limit(4)
                     ->get();

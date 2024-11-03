@@ -35,9 +35,9 @@ class ClearFPLData extends Command
         ini_set('max_execution_time', 0);
 
         Bus::chain([
+            new ClearGameweeks,
             new ClearTeams,
             new ClearPlayers,
-            new ClearGameweeks,
             new ClearFixtures
         ])->dispatch();
         return Command::SUCCESS; 

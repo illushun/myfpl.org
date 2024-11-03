@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('player_id');
+            $table->unsignedBigInteger('gameweek_id');
+
             $table->string('news');
 
-            $table->foreign('player_id')->references('id')->on('player');
+            $table->foreign('player_id')->references('id')->on('player')->onDelete('cascade');
+            $table->foreign('gameweek_id')->references('id')->on('gameweek')->onDelete('cascade');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

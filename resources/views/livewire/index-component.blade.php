@@ -28,7 +28,7 @@
         @foreach ($recentNews as $news)
 
             <x-feature.3.item
-                title="{{ $news->player->first_name }} {{ $news->player->second_name }} ({{ $news->player->team->name }})"
+        title="{{ $news->player->first_name }} {{ $news->player->second_name }} ({{ $news->player->detail->team->name }})"
                 subheading="{{ $news->news }}"
                 image="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $news->player->code }}.png" />
 
@@ -46,7 +46,7 @@
             </div>
             <div class="flex flex-col-reverse gap-8 sm:gap-20 lg:flex-row lg:items-center">
               <div class="max-w-2xl">
-                  <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $highestGoalScorer->player->code }}.png" alt="Top Scorer Image" />
+                  <img src="{{ $highestGoalScorer->player->detail->photo }}" alt="Top Scorer Image" />
               </div>
               <div class="max-w-2xl">
                   <h2 class="mb-4 text-3xl font-bold md:text-5xl">{{ $highestGoalScorer->player->first_name }} {{ $highestGoalScorer->player->second_name }}</h2>
@@ -64,14 +64,14 @@
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Team</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestGoalScorer->player->team->name }}</span>
+                      <span class="text-2xl font-bold">{{ $highestGoalScorer->player->detail->team->name }}</span>
                     </div>
 
                     <div class="p-8 flex flex-col lg:items-start items-center justify-center">
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Position</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestGoalScorer->player->type->singular_name }}</span>
+                      <span class="text-2xl font-bold">{{ $highestGoalScorer->player->role->singular_name }}</span>
                     </div>
 
                   </div>
@@ -87,7 +87,7 @@
             </div>
             <div class="flex flex-col-reverse gap-8 sm:gap-20 lg:flex-row lg:items-center">
               <div class="max-w-2xl">
-                  <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $highestAssister->player->code }}.png" alt="Top Assister Image" />
+                  <img src="{{ $highestAssister->player->detail->photo }}" alt="Top Assister Image" />
               </div>
               <div class="max-w-2xl">
                   <h2 class="mb-4 text-3xl font-bold md:text-5xl">{{ $highestAssister->player->first_name }} {{ $highestAssister->player->second_name }}</h2>
@@ -105,14 +105,14 @@
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Team</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestAssister->player->team->name }}</span>
+                      <span class="text-2xl font-bold">{{ $highestAssister->player->detail->team->name }}</span>
                     </div>
 
                     <div class="p-8 flex flex-col lg:items-start items-center justify-center">
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Position</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestAssister->player->type->singular_name }}</span>
+                      <span class="text-2xl font-bold">{{ $highestAssister->player->role->singular_name }}</span>
                     </div>
 
                   </div>
@@ -128,7 +128,7 @@
             </div>
             <div class="flex flex-col-reverse gap-8 sm:gap-20 lg:flex-row lg:items-center">
               <div class="max-w-2xl">
-                  <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $highestCleanSheets->player->code }}.png" alt="Top Assister Image" />
+                  <img src="{{ $highestCleanSheets->player->detail->photo }}" alt="Top Assister Image" />
               </div>
               <div class="max-w-2xl">
                   <h2 class="mb-4 text-3xl font-bold md:text-5xl">{{ $highestCleanSheets->player->first_name }} {{ $highestCleanSheets->player->second_name }}</h2>
@@ -146,14 +146,14 @@
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Team</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestCleanSheets->player->team->name }}</span>
+                      <span class="text-2xl font-bold">{{ $highestCleanSheets->player->detail->team->name }}</span>
                     </div>
 
                     <div class="p-8 flex flex-col lg:items-start items-center justify-center">
                       <div class="flex justify-between w-full mb-8">
                         <span class="text-gray-500 font-bold">Position</span>
                       </div>
-                      <span class="text-2xl font-bold">{{ $highestCleanSheets->player->type->singular_name }}</span>
+                      <span class="text-2xl font-bold">{{ $highestCleanSheets->player->role->singular_name }}</span>
                     </div>
 
                   </div>
@@ -174,7 +174,7 @@
             <x-team.item
                 title="{{ $player->player->first_name }} {{ $player->player->second_name }}"
                 subheading="{{ $player->points }} Point(s)"
-                image="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $player->player->code }}.png" />
+                image="{{ $player->player->detail->photo }}" />
 
         @endforeach
 

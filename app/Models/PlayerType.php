@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlayerRole extends Model
+class PlayerType extends Model
 {
     use HasFactory;
 
-    protected $table = "player_role";
+    protected $table = "player_type";
 
     /**
      * The attributes that are mass assignable.

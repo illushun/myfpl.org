@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('fixture', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('code')->default(0);
             $table->integer('fixture_id')->default(0)->index(); // id
             $table->unsignedBigInteger('gameweek_id'); // event
@@ -31,9 +32,9 @@ return new class extends Migration
             $table->smallInteger('team_h_score')->nullable()->default(null);
             $table->smallInteger('team_h_difficulty')->default(0);
 
-            $table->foreign('gameweek_id')->references('id')->on('gameweek');
-            $table->foreign('team_a')->references('id')->on('team');
-            $table->foreign('team_h')->references('id')->on('team');
+            $table->foreign('gameweek_id')->references('id')->on('gameweek')->onDelete('cascade');
+            $table->foreign('team_a')->references('id')->on('team')->onDelete('cascade');
+            $table->foreign('team_h')->references('id')->on('team')->onDelete('cascade');
 
             $table->string('hash')->nullable()->default(null);
             $table->timestamp('created_at')->useCurrent();

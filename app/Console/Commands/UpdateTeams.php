@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 use Exception;
 
 use App\Helpers\FPL\Helper as FPLHelper;
+use App\Helpers\FPL\Season\SeasonHelper;
+
 use App\Models\Team;
 use App\Models\TeamStrength;
 
@@ -38,8 +40,17 @@ class UpdateTeams extends Command
             return;
         }
 
+        $season = SeasonHelper::getCurrentSeason();
+        if (!$season) {
+            \Log::info("[UpdateTeams] Unable to get current season");
+            return;
+        }
+
         foreach ($summary["teams"] as $index => $team) {
-            $FPLTeam = Team::find($team["id"]);
+            $FPLTeam = Team
+                ::where('season_id', $season->id)
+                    ->where('fpl_id', $team["id"])
+                    ->first();
 
             if (!$FPLTeam) {
                 \Log::info("[UpdateTeams] Unable to find team with ID: '" . $team["id"] . "'");
@@ -53,13 +64,6 @@ class UpdateTeams extends Command
             }
 
             try {
-                $FPLTeam->win = $team["win"];
-                $FPLTeam->draw = $team["draw"];
-                $FPLTeam->loss = $team["loss"];
-                $FPLTeam->played = $team["played"];
-                $FPLTeam->position = $team["position"];
-                $FPLTeam->points = $team["points"];
-                $FPLTeam->form = (float) $team["form"];
                 $FPLTeam->strength = $team["strength"];
                 $FPLTeam->hash = $hash;
                 $FPLTeam->updated_at = date('Y-m-d H:i:s');

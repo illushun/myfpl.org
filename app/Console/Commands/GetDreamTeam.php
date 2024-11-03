@@ -3,10 +3,14 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+
 use App\Helpers\FPL\Helper as FPLHelper;
+use App\Helpers\FPL\Season\SeasonHelper;
+use App\Helpers\FPL\Season\GameweekHelper;
 
 use App\Models\Gameweek;
 use App\Models\DreamTeam;
+use App\Models\Player;
 
 class GetDreamTeam extends Command
 {
@@ -29,17 +33,22 @@ class GetDreamTeam extends Command
      */
     public function handle()
     {
-        $current_gameweek = Gameweek::where('is_current', 'true')->first();
+        $season = SeasonHelper::getCurrentSeason();
+        if (!$season) {
+            \Log::info("[GetDreamTeam] Unable to get current season");
+            return;
+        }
 
-        if (!$current_gameweek) {
-            \Log::info("[GetDreamTeam] There is no current gameweek...");
+        $gameweek = GameweekHelper::getCurrentGameweek();
+        if (!$gameweek) {
+            \Log::info("[GetDreamTeam] Unable to get current gameweek");
             return;
         }
 
         // remove old data for gameweek
-        DreamTeam::where('gameweek_id', $current_gameweek->id)->delete();
+        DreamTeam::where('gameweek_id', $gameweek->id)->delete();
 
-        $dream_team = FPLHelper::getDreamTeam($current_gameweek->id);
+        $dream_team = FPLHelper::getDreamTeam($gameweek->id);
         $validTeam = isset($dream_team["team"]);
 
         if (!$validTeam) {
@@ -49,9 +58,14 @@ class GetDreamTeam extends Command
 
         foreach ($dream_team["team"] as $player) {
             try {
+                $FPLPlayer = Player
+                    ::where('season_id', $season->id)
+                        ->where('fpl_id', $player["element"])
+                        ->first();
+
                 DreamTeam::insert([
-                    'gameweek_id' => $current_gameweek->id,
-                    'player_id' => $player["element"],
+                    'gameweek_id' => $gameweek->id,
+                    'player_id' => $FPLPlayer->id,
                     'points' => $player["points"],
                     'position' => $player["position"]
                 ]);
