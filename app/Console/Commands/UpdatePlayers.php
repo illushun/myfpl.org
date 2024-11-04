@@ -17,6 +17,7 @@ use App\Models\PlayerStat;
 use App\Models\PlayerXg;
 use App\Models\PlayerDetail;
 use App\Models\Gameweek;
+use App\Models\Team;
 
 class UpdatePlayers extends Command
 {
