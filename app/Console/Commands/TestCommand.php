@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FPLMail;
 
@@ -10,6 +11,7 @@ use App\Helpers\FPL\Helper as FPLHelper;
 use App\Helpers\FPL\Season\GameweekHelper;
 use App\Helpers\FPL\Season\SeasonHelper;
 
+use App\Jobs\ClearFixtures;
 
 class TestCommand extends Command
 {
@@ -32,7 +34,12 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $name = "Admin";
-        Mail::to(env("FPL_ALERT_EMAIL"))->send(new FPLMail($name));
+        ini_set('memory_limit', '1024M');
+        ini_set('max_execution_time', 0);
+
+        Bus::chain([
+            new ClearFixtures
+        ])->dispatch();
+        return Command::SUCCESS; 
     }
 }

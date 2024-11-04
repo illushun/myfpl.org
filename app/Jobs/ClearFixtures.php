@@ -50,6 +50,8 @@ class ClearFixtures implements ShouldQueue
 
         //FixtureStat::truncate();
         //Fixture::truncate();
+        $gameweeks = Gameweek::where('season_id', $season->id)->pluck('id')->toArray(); 
+        Fixture::whereIn('gameweek_id', $gameweeks)->delete();
 
         foreach ($fixtures as $index => $fixture) {
             $hash = md5(json_encode($fixture));
@@ -61,8 +63,6 @@ class ClearFixtures implements ShouldQueue
             if (!$gameweek) {
                 continue;
             }
-
-            Fixture::where('gameweek_id', $gameweek->id)->delete();
 
             $teamA = Team
                 ::where('season_id', $season->id)
