@@ -13,6 +13,7 @@ use App\Helpers\FPL\Season\GameweekHelper;
 
 use App\Models\Fixture;
 use App\Models\FixtureStat;
+use App\Models\Player;
 
 class UpdateFixtures extends Command
 {
