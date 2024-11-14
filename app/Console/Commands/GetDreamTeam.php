@@ -54,7 +54,7 @@ class GetDreamTeam extends Command
         $validTeam = isset($dream_team["team"]);
 
         if (!$validTeam) {
-            \Log::info("[GetDreamTeam] Unable to fetch dream team for gameweek '" . $current_gameweek->id . "'");
+            \Log::info("[GetDreamTeam] Unable to fetch dream team for gameweek '" . $gameweek->id . "'");
             return;
         }
 

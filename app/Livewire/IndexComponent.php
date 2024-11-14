@@ -86,7 +86,7 @@ class IndexComponent extends Component
             ::with('player')
                 ->select(['news', 'player_id'])
                 ->orderBy('created_at', 'desc')
-                ->take(3)
+                ->take(4)
                 ->get();
     }
 }

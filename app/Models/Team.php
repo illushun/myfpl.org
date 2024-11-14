@@ -11,6 +11,7 @@ use App\Models\Fixture;
 use App\Models\Season;
 use App\Models\FixtureStat;
 use App\Models\TeamStrength;
+use App\Models\PlayerDetail;
 
 class Team extends Model
 {
@@ -56,5 +57,13 @@ class Team extends Model
 
     public function homeFixtures(): HasMany {
         return $this->hasMany(Fixture::class, 'team_h');
+    }
+
+    public function players(): HasMany {
+        return $this->hasMany(PlayerDetail::class, 'team_id');
+    }
+
+    public function playerCount(): int {
+        return $this->players()->count(); 
     }
 }

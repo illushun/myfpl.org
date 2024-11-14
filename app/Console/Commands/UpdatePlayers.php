@@ -188,48 +188,109 @@ class UpdatePlayers extends Command
             }
 
             try {
-                $FPLPlayerStat = PlayerStat::where('player_id', $FPLPlayer->id)->first();
-                $FPLPlayerStat->now_cost = $player["now_cost"];
-                $FPLPlayerStat->points_per_game = (float) $player["points_per_game"];
-                $FPLPlayerStat->selected_by_percent = (float) $player["selected_by_percent"];
-                $FPLPlayerStat->total_points = $player["total_points"];
-                $FPLPlayerStat->form = (float) $player["form"];
-                $FPLPlayerStat->value_form = (float) $player["value_form"];
-                $FPLPlayerStat->value_season = (float) $player["value_season"];
-                $FPLPlayerStat->minutes = $player["minutes"];
-                $FPLPlayerStat->goals_scored = $player["goals_scored"];
-                $FPLPlayerStat->assists = $player["assists"];
-                $FPLPlayerStat->clean_sheets = $player["clean_sheets"];
-                $FPLPlayerStat->goals_conceded = $player["goals_conceded"];
-                $FPLPlayerStat->own_goals = $player["own_goals"];
-                $FPLPlayerStat->penalties_saved = $player["penalties_saved"];
-                $FPLPlayerStat->penalties_missed = $player["penalties_missed"];
-                $FPLPlayerStat->yellow_cards = $player["yellow_cards"];
-                $FPLPlayerStat->red_cards = $player["red_cards"];
-                $FPLPlayerStat->saves = $player["saves"];
-                $FPLPlayerStat->bonus = $player["bonus"];
-                $FPLPlayerStat->bps = $player["bps"];
-                $FPLPlayerStat->starts = $player["starts"];
-                $FPLPlayerStat->save();
+                $FPLPlayerStat = PlayerStat
+                    ::where('player_id', $FPLPlayer->id)
+                        ->where('gameweek_id', $gameweek->id)
+                        ->first();
+
+                if (!$FPLPlayerStat) {
+                    PlayerStat::insert([
+                        "player_id" => $playerId,
+                        "gameweek_id" => $gameweek->id,
+                        "now_cost" => $player["now_cost"],
+                        "points_per_game" => (float) $player["points_per_game"],
+                        "selected_by_percent" => (float) $player["selected_by_percent"],
+                        "total_points" => $player["total_points"],
+                        "form" => (float) $player["form"],
+                        "value_form" => (float) $player["value_form"],
+                        "value_season" => (float) $player["value_season"],
+                        "minutes" => $player["minutes"],
+                        "goals_scored" => $player["goals_scored"],
+                        "assists" => $player["assists"],
+                        "clean_sheets" => $player["clean_sheets"],
+                        "goals_conceded" => $player["goals_conceded"],
+                        "own_goals" => $player["own_goals"],
+                        "penalties_saved" => $player["penalties_saved"],
+                        "penalties_missed" => $player["penalties_missed"],
+                        "yellow_cards" => $player["yellow_cards"],
+                        "red_cards" => $player["red_cards"],
+                        "saves" => $player["saves"],
+                        "bonus" => $player["bonus"],
+                        "bps" => $player["bps"],
+                        "influence" => (float) $player["influence"],
+                        "creativity" => (float) $player["creativity"],
+                        "threat" => (float) $player["threat"],
+                        "starts" => $player["starts"],
+                    ]);
+                } else {
+                    $FPLPlayerStat->now_cost = $player["now_cost"];
+                    $FPLPlayerStat->points_per_game = (float) $player["points_per_game"];
+                    $FPLPlayerStat->selected_by_percent = (float) $player["selected_by_percent"];
+                    $FPLPlayerStat->total_points = $player["total_points"];
+                    $FPLPlayerStat->form = (float) $player["form"];
+                    $FPLPlayerStat->value_form = (float) $player["value_form"];
+                    $FPLPlayerStat->value_season = (float) $player["value_season"];
+                    $FPLPlayerStat->minutes = $player["minutes"];
+                    $FPLPlayerStat->goals_scored = $player["goals_scored"];
+                    $FPLPlayerStat->assists = $player["assists"];
+                    $FPLPlayerStat->clean_sheets = $player["clean_sheets"];
+                    $FPLPlayerStat->goals_conceded = $player["goals_conceded"];
+                    $FPLPlayerStat->own_goals = $player["own_goals"];
+                    $FPLPlayerStat->penalties_saved = $player["penalties_saved"];
+                    $FPLPlayerStat->penalties_missed = $player["penalties_missed"];
+                    $FPLPlayerStat->yellow_cards = $player["yellow_cards"];
+                    $FPLPlayerStat->red_cards = $player["red_cards"];
+                    $FPLPlayerStat->saves = $player["saves"];
+                    $FPLPlayerStat->bonus = $player["bonus"];
+                    $FPLPlayerStat->bps = $player["bps"];
+                    $FPLPlayerStat->influence = (float) $player["influence"];
+                    $FPLPlayerStat->creativity = (float) $player["creativity"];
+                    $FPLPlayerStat->threat = (float) $player["threat"];
+                    $FPLPlayerStat->starts = $player["starts"];
+                    $FPLPlayerStat->save();
+                }
             } catch (Exception $e) {
                 \Log::error("[UpdatePlayers] FPLPlayerStat: " . $e->getMessage());
             }
 
             try {
-                $FPLPlayerXg = PlayerXg::where('player_id', $FPLPlayer->id)->first();
-                $FPLPlayerXg->expected_goals = (float) $player["expected_goals"];
-                $FPLPlayerXg->expected_assists = (float) $player["expected_assists"];
-                $FPLPlayerXg->expected_goal_involvements = (float) $player["expected_goal_involvements"];
-                $FPLPlayerXg->expected_goals_conceded = (float) $player["expected_goals_conceded"];
-                $FPLPlayerXg->expected_goals_per_90 = (float) $player["expected_goals_per_90"];
-                $FPLPlayerXg->saves_per_90 = (float) $player["saves_per_90"];
-                $FPLPlayerXg->expected_assists_per_90 = (float) $player["expected_assists_per_90"];
-                $FPLPlayerXg->expected_goal_involvements_per_90 = (float) $player["expected_goal_involvements_per_90"];
-                $FPLPlayerXg->expected_goals_conceded_per_90 = (float) $player["expected_goals_conceded_per_90"];
-                $FPLPlayerXg->goals_conceded_per_90 = (float) $player["goals_conceded_per_90"];
-                $FPLPlayerXg->starts_per_90 = (float) $player["starts_per_90"];
-                $FPLPlayerXg->clean_sheets_per_90 = (float) $player["clean_sheets_per_90"];
-                $FPLPlayerXg->save();
+                $FPLPlayerXg = PlayerXg
+                    ::where('player_id', $FPLPlayer->id)
+                        ->where('gameweek_id', $gameweek->id)
+                        ->first();
+
+                if (!$FPLPlayerStat) {
+                    PlayerXg::insert([
+                        "player_id" => $playerId,
+                        "gameweek_id" => $gameweek->id,
+                        "expected_goals" => (float) $player["expected_goals"],
+                        "expected_assists" => (float) $player["expected_assists"],
+                        "expected_goal_involvements" => (float) $player["expected_goal_involvements"],
+                        "expected_goals_conceded" => (float) $player["expected_goals_conceded"],
+                        "expected_goals_per_90" => (float) $player["expected_goals_per_90"],
+                        "saves_per_90" => (float) $player["saves_per_90"],
+                        "expected_assists_per_90" => (float) $player["expected_assists_per_90"],
+                        "expected_goal_involvements_per_90" => (float) $player["expected_goal_involvements_per_90"],
+                        "expected_goals_conceded_per_90" => (float) $player["expected_goals_conceded_per_90"],
+                        "goals_conceded_per_90" => (float) $player["goals_conceded_per_90"],
+                        "starts_per_90" => (float) $player["starts_per_90"],
+                        "clean_sheets_per_90" => (float) $player["clean_sheets_per_90"],
+                    ]);
+                } else {
+                    $FPLPlayerXg->expected_goals = (float) $player["expected_goals"];
+                    $FPLPlayerXg->expected_assists = (float) $player["expected_assists"];
+                    $FPLPlayerXg->expected_goal_involvements = (float) $player["expected_goal_involvements"];
+                    $FPLPlayerXg->expected_goals_conceded = (float) $player["expected_goals_conceded"];
+                    $FPLPlayerXg->expected_goals_per_90 = (float) $player["expected_goals_per_90"];
+                    $FPLPlayerXg->saves_per_90 = (float) $player["saves_per_90"];
+                    $FPLPlayerXg->expected_assists_per_90 = (float) $player["expected_assists_per_90"];
+                    $FPLPlayerXg->expected_goal_involvements_per_90 = (float) $player["expected_goal_involvements_per_90"];
+                    $FPLPlayerXg->expected_goals_conceded_per_90 = (float) $player["expected_goals_conceded_per_90"];
+                    $FPLPlayerXg->goals_conceded_per_90 = (float) $player["goals_conceded_per_90"];
+                    $FPLPlayerXg->starts_per_90 = (float) $player["starts_per_90"];
+                    $FPLPlayerXg->clean_sheets_per_90 = (float) $player["clean_sheets_per_90"];
+                    $FPLPlayerXg->save();
+                }
             } catch (Exception $e) {
                 \Log::error("[UpdatePlayers] FPLPlayerXg: " . $e->getMessage());
             }
