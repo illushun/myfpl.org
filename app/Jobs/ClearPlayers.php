@@ -108,11 +108,13 @@ class ClearPlayers implements ShouldQueue
                 "team_id" => $team->id,
             ]);
 
-            PlayerNews::insert([
-                "player_id" => $playerId,
-                "gameweek_id" => $gameweek->id,
-                "news" => $player["news"],
-            ]);
+            if ($player["news"]) {
+                PlayerNews::insert([
+                    "player_id" => $playerId,
+                    "gameweek_id" => $gameweek->id,
+                    "news" => $player["news"],
+                ]);
+            }
 
             PlayerStat::insert([
                 "player_id" => $playerId,
