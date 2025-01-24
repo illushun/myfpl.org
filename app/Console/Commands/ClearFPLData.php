@@ -14,7 +14,6 @@ use App\Jobs\ClearFixtures;
 
 class ClearFPLData extends Command
 {
-    // testing commit :)
     /**
      * The name and signature of the console command.
      *
