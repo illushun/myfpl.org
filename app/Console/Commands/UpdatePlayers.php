@@ -195,7 +195,7 @@ class UpdatePlayers extends Command
 
                 if (!$FPLPlayerStat) {
                     PlayerStat::insert([
-                        "player_id" => $playerId,
+                        "player_id" => $FPLPlayer->id,
                         "gameweek_id" => $gameweek->id,
                         "now_cost" => $player["now_cost"],
                         "points_per_game" => (float) $player["points_per_game"],
@@ -261,7 +261,7 @@ class UpdatePlayers extends Command
 
                 if (!$FPLPlayerStat) {
                     PlayerXg::insert([
-                        "player_id" => $playerId,
+                        "player_id" => $FPLPlayer->id,
                         "gameweek_id" => $gameweek->id,
                         "expected_goals" => (float) $player["expected_goals"],
                         "expected_assists" => (float) $player["expected_assists"],
