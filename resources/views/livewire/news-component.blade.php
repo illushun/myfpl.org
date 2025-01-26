@@ -7,7 +7,7 @@
             <x-blog.item
                 title="{{ $new->player->first_name }} {{ $new->player->second_name }}"
                 description="{{ $new->news }}"
-                image="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ $new->player->code }}.png"
+                image="{{ $new->player->detail->photo }}"
                 date="{{ date('D d M Y', strtotime($new->created_at)) }}"
                 link="" />
 
