@@ -4,6 +4,7 @@ namespace App\Livewire\Players;
 
 use Livewire\Component;
 use App\Models\Player;
+use App\Helpers\FPL\Helper as FPLHelper;
 
 class PlayerViewComponent extends Component
 {
@@ -12,6 +13,10 @@ class PlayerViewComponent extends Component
 
     public function mount($data) {
         $this->player = $data;
+
+        $news = FPLHelper::getPLNewsFeed();
+
+        dd($news);
     }
 
     public function render()

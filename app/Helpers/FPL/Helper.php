@@ -37,6 +37,10 @@ class Helper {
         return self::CACHE_KEY . ".DreamTeam";
     }
 
+    private static function _getNewsFeedKey(): string {
+        return self::CACHE_KEY . ".NewsFeed";
+    }
+
     /* Get */
     public static function getFPLSummary(): mixed {
         $cacheKey = self::_getSummaryKey();
@@ -114,6 +118,37 @@ class Helper {
         });
     }
 
+    public static function getPLNewsFeed(int $limit = 23): mixed {
+        $cacheKey = self::_getNewsFeedKey();
+        return Cache::remember($cacheKey, self::CACHE_EXPIRE, function () use ($limit) {
+            try {
+                $apiUrl = str_replace("%LIMIT%", $limit, env("PL_NEWS_FEED_API_URL")); 
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => $apiUrl,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . env("PL_NEWS_FEED_API_KEY") 
+                    ),   
+                ));
+
+                $response = curl_exec($curl);
+                curl_close($curl);
+            } catch (Exception $e) {
+                \Log::error("[FPLHelper] GetPLNewsFeed: " . $e->getMessage());
+                return [];
+            }
+            return json_decode($response, true);
+        });
+    }
 
     /* Forget */
     public static function forgetFPLSummary(): void {

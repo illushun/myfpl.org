@@ -23,7 +23,7 @@ class SeasonHelper {
     /* Private */
     private static function getSeasonName(): string {
        $currentYear = date("Y");
-        $currentMonth = date("n");
+       $currentMonth = date("n");
 
         // If current month is June or later, we're in the next season's start year
         if ($currentMonth >= 6) {
