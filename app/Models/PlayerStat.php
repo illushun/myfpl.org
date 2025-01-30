@@ -49,8 +49,8 @@ class PlayerStat extends Model
         'starts',
     ];
 
-    public function player(): HasOne {
-        return $this->hasOne(Player::class, 'id', 'player_id');
+    public function player() {
+        return $this->belongsTo(Player::class, 'player_id', 'id');
     }
 
     public function gameweek(): HasOne {

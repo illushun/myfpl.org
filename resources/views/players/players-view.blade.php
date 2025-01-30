@@ -34,7 +34,7 @@
         <!-- X-UA-Compatible for IE -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>MyFPL | Teams</title>
+        <title>MyFPL | Players</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">

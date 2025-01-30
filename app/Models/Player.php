@@ -47,12 +47,12 @@ class Player extends Model
         return $this->hasOne(PlayerType::class, 'id', 'type');        
     }
 
-    public function stats(): HasOne {
-        return $this->hasOne(PlayerStat::class);
+    public function stats(): HasMany {
+        return $this->hasMany(PlayerStat::class, 'player_id');
     }
 
-    public function xg(): HasOne {
-        return $this->hasOne(PlayerXg::class);
+    public function xg(): HasMany {
+        return $this->hasMany(PlayerXg::class);
     }
 
     public function fixtureStats(): HasMany {

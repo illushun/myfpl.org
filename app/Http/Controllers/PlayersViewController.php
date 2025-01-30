@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Player;
+use App\Models\PlayerStat;
 
 class PlayersViewController extends Controller
 {
@@ -21,7 +22,7 @@ class PlayersViewController extends Controller
     public function show(string $id)
     {
         try {
-            $player = Player::find($id);
+            $player = Player::with(['stats'])->find($id);
             if (!$player) {
                 return $this->index();
             }
