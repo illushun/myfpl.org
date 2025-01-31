@@ -40,6 +40,6 @@ class LeagueNews extends Model
     }
 
     public function images(): HasMany {
-        return $this->hasMany(LeagueNewsImage::class, 'id', 'post_id');        
+        return $this->hasMany(LeagueNewsImage::class, 'post_id', 'id');        
     }
 }

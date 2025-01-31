@@ -1,20 +1,21 @@
 <div>
 
-    <x-blog.container title="News" subheading="The latest player news of the season">
+    <x-blog.container title="League News" subheading="The latest news of the season">
 
-        @foreach ($news as $new)
+        @foreach ($league_news as $post)
 
             <x-blog.item
-                title="{{ $new->player->first_name }} {{ $new->player->second_name }}"
-                description="{{ $new->news }}"
-                image="{{ $new->player->detail->photo }}"
-                date="{{ date('D d M Y', strtotime($new->created_at)) }}"
-                link="" />
+                title="{!! $post->headline !!}"
+                description="{!! $post->description !!}"
+                image="{!! $post->images[0]->link !!}"
+                date="{{ date('D d M Y - H:i:s', strtotime($post->created_at)) }}"
+                link="{!! $post->link !!}"
+                alt="" />
 
         @endforeach
 
     </x-blog.container>
 
-    {{ $news->links() }}
+    {{ $league_news->links() }}
 
 </div>

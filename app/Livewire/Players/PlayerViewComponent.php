@@ -13,10 +13,6 @@ class PlayerViewComponent extends Component
 
     public function mount($data) {
         $this->player = $data;
-
-        $news = FPLHelper::getPLNewsFeed();
-
-        dd($news);
     }
 
     public function render()
