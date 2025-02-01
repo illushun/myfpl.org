@@ -24,10 +24,14 @@ class Kernel extends ConsoleKernel {
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('fpl:update-gameweeks')->dailyAt('1:00');
-        $schedule->command('fpl:update-fixtures')->dailyAt('1:20');
-        $schedule->command('fpl:update-teams')->dailyAt('1:40');
-        $schedule->command('fpl:update-players')->dailyAt('2:00');
-        $schedule->command('fpl:predict-gameweek-fixtures')->dailyAt('2:30');
+        if (env('APP_ENV', 'local') === "production") {
+            $schedule->command('fpl:update-gameweeks')->dailyAt('1:00');
+            $schedule->command('fpl:update-fixtures')->dailyAt('1:20');
+            $schedule->command('fpl:update-teams')->dailyAt('1:40');
+            $schedule->command('fpl:update-players')->dailyAt('2:00');
+            $schedule->command('fpl:predict-gameweek-fixtures')->dailyAt('2:30');
+
+            $schedule->command('fpl:get-league-news')->hourly();
+        }
     }   
 }
