@@ -193,19 +193,21 @@
         <x-layout.container.title title="Recent News"
                                   subtitle="The latest news regarding players" />
 
-        <x-layout.news.grid>
+        <x-blog.container>
 
-            @foreach ($recentNews as $news)
+            @foreach ($recentNews as $post)
 
-                <x-layout.news.item title="{{ $news->news }}"
-                                    subheading="{{ $news->player->first_name }} {{ $news->player->second_name }} ({{ $news->player->detail->team->name }})"
-                                    image="{{ $news->player->detail->photo }}"
-                                    alt="{{ $news->player->first_name }} {{ $news->player->second_name }} Image"
-                                    link="{{ route('player.view', $news->player->id) }}" />
+                <x-blog.item
+                    title="{!! $post->headline !!}"
+                    description="{!! $post->description !!}"
+                    image="{!! $post->images[0]->link !!}"
+                    date="{{ date('D d M Y - H:i:s', strtotime($post->created_at)) }}"
+                    link="{!! $post->link !!}"
+                    alt="" />
 
             @endforeach
 
-        </x-layout.news.grid>
+        </x-blog.container>
 
         <x-button.outline-rounded-link-icon text="View All"
                                             link="{{ route('news.view') }}" />
@@ -225,7 +227,8 @@
 
                 <x-layout.gameweek.item
                     title="{{ $player->player->first_name }} {{ $player->player->second_name }}"
-                    subheading="{{ $player->points }} Point(s)"
+                    subheading="{{ $player->player->detail->team->name }}"
+                    points="{{ $player->points }}"
                     image="{{ $player->player->detail->photo }}" />
 
             @endforeach

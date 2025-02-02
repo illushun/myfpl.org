@@ -10,7 +10,7 @@ use App\Models\FixturePrediction;
 use App\Models\PlayerXg;
 use App\Models\PlayerStat;
 use App\Models\DreamTeam;
-use App\Models\PlayerNews;
+use App\Models\LeagueNews;
 
 class IndexComponent extends Component
 {
@@ -82,11 +82,10 @@ class IndexComponent extends Component
                 ->orderBy('position', 'asc')
                 ->get();
 
-        $this->recentNews = PlayerNews
-            ::with('player')
-                ->select(['news', 'player_id'])
+        $this->recentNews = LeagueNews
+            ::with('images')
                 ->orderBy('created_at', 'desc')
-                ->take(4)
+                ->take(3)
                 ->get();
     }
 }
