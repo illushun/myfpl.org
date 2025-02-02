@@ -127,6 +127,6 @@ class GetLeagueNews extends Command
             }
         }
 
-        Mail::to(env("FPL_ALERT_EMAIL"))->send(new GetLeagueNewsAlert("Admin"));
+        //Mail::to(env("FPL_ALERT_EMAIL"))->send(new GetLeagueNewsAlert("Admin"));
     }
 }
