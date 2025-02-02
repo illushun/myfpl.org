@@ -226,8 +226,8 @@
             @foreach ($dreamTeam as $player)
 
                 <x-layout.gameweek.item
-                    title="{{ $player->player->first_name }} {{ $player->player->second_name }}"
-                    subheading="{{ $player->player->detail->team->name }}"
+                    title="{!! $player->player->first_name !!} {!! $player->player->second_name !!}"
+                    subheading="{!! $player->player->detail->team->name !!}"
                     points="{{ $player->points }}"
                     image="{{ $player->player->detail->photo }}" />
 
