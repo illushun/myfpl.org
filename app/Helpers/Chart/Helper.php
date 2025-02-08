@@ -113,13 +113,14 @@ class Helper {
         return str_replace($keys, $replace, $template);
     }
 
-    public static function formatExpectedGoalsData(): array {
+    public static function formatExpectedGoalsData($gameweek_id): array {
         $return = [];
 
         $xg_data = [];
         $xg_records = PlayerXg
             ::with('player')
                 ->select(['expected_goals', 'player_id'])
+                ->where('gameweek_id', $gameweek_id)
                 ->orderBy('expected_goals', 'desc')
                 ->take(3)
                 ->get();
@@ -140,13 +141,14 @@ class Helper {
         return $return;
     }
 
-    public static function formatExpectedAssistsData(): array {
+    public static function formatExpectedAssistsData($gameweek_id): array {
         $return = [];
 
         $xa_data = [];
         $xa_records = PlayerXg
             ::with('player')
                 ->select(['expected_assists', 'player_id'])
+                ->where('gameweek_id', $gameweek_id)
                 ->orderBy('expected_assists', 'desc')
                 ->take(3)
                 ->get();
@@ -167,13 +169,14 @@ class Helper {
         return $return;
     }
 
-    public static function formatExpectedGoalsPer90Data(): array {
+    public static function formatExpectedGoalsPer90Data($gameweek_id): array {
         $return = [];
 
         $xgp_data = [];
         $xgp_records = PlayerXg
             ::with('player')
                 ->select(['expected_goals_per_90', 'player_id'])
+                ->where('gameweek_id', $gameweek_id)
                 ->orderBy('expected_goals_per_90', 'desc')
                 ->take(3)
                 ->get();

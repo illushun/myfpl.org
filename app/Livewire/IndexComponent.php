@@ -46,7 +46,7 @@ class IndexComponent extends Component
     {
         $this->gameweek = FPLData::getCurrentGameweek();
 
-        $xg_chart_data = ChartHelper::formatExpectedGoalsData();
+        $xg_chart_data = ChartHelper::formatExpectedGoalsData($this->gameweek->id);
         $this->xg_chart = ChartHelper::getDistributedColumnTemplate();
         $this->xg_chart = ChartHelper::makeChart(
             $this->xg_chart,
@@ -55,7 +55,7 @@ class IndexComponent extends Component
             $xg_chart_data["labels"]
         );
 
-        $xa_chart_data = ChartHelper::formatExpectedAssistsData();
+        $xa_chart_data = ChartHelper::formatExpectedAssistsData($this->gameweek->id);
         $this->xa_chart = ChartHelper::getDistributedColumnTemplate();
         $this->xa_chart = ChartHelper::makeChart(
             $this->xa_chart,
@@ -64,7 +64,7 @@ class IndexComponent extends Component
             $xa_chart_data["labels"]
         );
 
-        $xgp_chart_data = ChartHelper::formatExpectedGoalsPer90Data();
+        $xgp_chart_data = ChartHelper::formatExpectedGoalsPer90Data($this->gameweek->id);
         $this->xgp_chart = ChartHelper::getDistributedColumnTemplate();
         $this->xgp_chart = ChartHelper::makeChart(
             $this->xgp_chart,
