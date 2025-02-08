@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Helpers\FPL\Data as FPLData;
+use App\Helpers\Chart\Helper as ChartHelper;
+
 use App\Models\FixturePrediction;
 use App\Models\PlayerXg;
 use App\Models\PlayerStat;
@@ -15,6 +17,10 @@ use App\Models\LeagueNews;
 class IndexComponent extends Component
 {
     use WithPagination;
+
+    public $xg_chart = '';
+    public $xa_chart = '';
+    public $xgp_chart = '';
 
     public $gameweek = null;
     public $gameweekWinningPrediction = null;
@@ -40,21 +46,32 @@ class IndexComponent extends Component
     {
         $this->gameweek = FPLData::getCurrentGameweek();
 
-        $this->highestExpectedGoals = PlayerXg
-            ::with('player')
-                ->select(['expected_goals', 'player_id'])
-                ->orderBy('expected_goals', 'desc')
-                ->first();
-        $this->highestExpectedAssists = PlayerXg
-            ::with('player')
-                ->select(['expected_assists', 'player_id'])
-                ->orderBy('expected_assists', 'desc')
-                ->first();
-        $this->highestExpectedGoalsPer90 = PlayerXg
-            ::with('player')
-                ->select(['expected_goals_per_90', 'player_id'])
-                ->orderBy('expected_goals_per_90', 'desc')
-                ->first();
+        $xg_chart_data = ChartHelper::formatExpectedGoalsData();
+        $this->xg_chart = ChartHelper::getDistributedColumnTemplate();
+        $this->xg_chart = ChartHelper::makeChart(
+            $this->xg_chart,
+            $xg_chart_data["data"],
+            ['#002c5a', '#e32118', '#3498db'],
+            $xg_chart_data["labels"]
+        );
+
+        $xa_chart_data = ChartHelper::formatExpectedAssistsData();
+        $this->xa_chart = ChartHelper::getDistributedColumnTemplate();
+        $this->xa_chart = ChartHelper::makeChart(
+            $this->xa_chart,
+            $xa_chart_data["data"],
+            ['#002c5a', '#e32118', '#3498db'],
+            $xa_chart_data["labels"]
+        );
+
+        $xgp_chart_data = ChartHelper::formatExpectedGoalsPer90Data();
+        $this->xgp_chart = ChartHelper::getDistributedColumnTemplate();
+        $this->xgp_chart = ChartHelper::makeChart(
+            $this->xgp_chart,
+            $xgp_chart_data["data"],
+            ['#002c5a', '#e32118', '#3498db'],
+            $xgp_chart_data["labels"]
+        );
 
         $this->highestGoalScorer = PlayerStat
             ::with('player')

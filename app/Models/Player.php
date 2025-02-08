@@ -52,7 +52,7 @@ class Player extends Model
     }
 
     public function xg(): HasMany {
-        return $this->hasMany(PlayerXg::class);
+        return $this->hasMany(PlayerXg::class, 'player_id', 'id');
     }
 
     public function fixtureStats(): HasMany {

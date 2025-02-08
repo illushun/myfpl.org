@@ -174,17 +174,20 @@
         title="Top Performers"
         subheading="Highest expected performing players currently">
 
-        <x-facts.2.item
-            title="{{ $highestExpectedGoals->expected_goals }} xG"
-            subheading="{{ $highestExpectedGoals->player->first_name }} {{ $highestExpectedGoals->player->second_name }}" />
+          <div>
+            <h6>Expected Goals</h6>
+            <div id="xg-chart"></div>
+          </div>
 
-        <x-facts.2.item
-            title="{{ $highestExpectedAssists->expected_assists }} xA"
-            subheading="{{ $highestExpectedAssists->player->first_name }} {{ $highestExpectedAssists->player->second_name }}" />
+          <div>
+            <h6>Expected Assists</h6>
+            <div id="xa-chart"></div>
+          </div>
 
-        <x-facts.2.item
-            title="{{ $highestExpectedGoalsPer90->expected_goals_per_90 }} xGP90"
-            subheading="{{ $highestExpectedGoalsPer90->player->first_name }} {{ $highestExpectedGoalsPer90->player->second_name }}" />
+          <div>
+            <h6>Expected Goals Per 90</h6>
+            <div id="xgp-chart"></div>
+          </div>
 
     </x-facts.2.container>
 
@@ -273,3 +276,17 @@
 </footer> --}}
 
 </div>
+
+<script>
+    new ApexCharts(document.querySelector("#xg-chart"), {
+        {!! $xg_chart !!}
+    }).render();
+
+    new ApexCharts(document.querySelector("#xa-chart"), {
+        {!! $xa_chart !!}
+    }).render();
+
+    new ApexCharts(document.querySelector("#xgp-chart"), {
+        {!! $xgp_chart !!}
+    }).render();
+</script>
