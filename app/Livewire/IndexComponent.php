@@ -20,15 +20,10 @@ class IndexComponent extends Component
 
     public $xg_chart = '';
     public $xa_chart = '';
-    public $xgp_chart = '';
+    public $gi_chart = '';
 
     public $gameweek = null;
     public $gameweekWinningPrediction = null;
-
-    public $highestExpectedGoals = null;
-    public $highestExpectedAssists = null;
-    public $highestExpectedGoalsPer90 = null;
-    public $highestSavesPer90 = null;
 
     public $highestGoalScorer = null;
     public $highestAssister = null;
@@ -64,13 +59,13 @@ class IndexComponent extends Component
             $xa_chart_data["labels"]
         );
 
-        $xgp_chart_data = ChartHelper::formatExpectedGoalsPer90Data($this->gameweek->id);
-        $this->xgp_chart = ChartHelper::getDistributedColumnTemplate();
-        $this->xgp_chart = ChartHelper::makeChart(
-            $this->xgp_chart,
-            $xgp_chart_data["data"],
+        $gi_chart_data = ChartHelper::formatExpectedGoalInvolvementsData($this->gameweek->id);
+        $this->gi_chart = ChartHelper::getDistributedColumnTemplate();
+        $this->gi_chart = ChartHelper::makeChart(
+            $this->gi_chart,
+            $gi_chart_data["data"],
             ['#002c5a', '#e32118', '#3498db'],
-            $xgp_chart_data["labels"]
+            $gi_chart_data["labels"]
         );
 
         $this->highestGoalScorer = PlayerStat

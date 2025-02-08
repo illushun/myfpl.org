@@ -18,12 +18,22 @@
                             <h3 class="text-center text-2xl font-medium text-gray-900" id="tier-hobby">Most Assists</h3>
                             <div class="mt-4 flex flex-col items-center justify-center">
                               <img src="{{ $highestAssister->player->detail->photo }}" alt="{{ $highestAssister->player->first_name }} {{ $highestAssister->player->second_name }} Image" />
-                              <span class="mt-2 text-sm text-gray-400">{{ $highestAssister->player->first_name }} {{ $highestAssister->player->second_name }}</span>
                             </div>
                           </div>
                         </div>
                         <div class="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
                           <ul role="list" class="space-y-4">
+
+                              <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                  <!-- Heroicon name: information-circle -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base font-medium text-gray-500">{{ $highestAssister->player->first_name }} {{ $highestAssister->player->second_name }}</p>
+                              </li>
+
                             <li class="flex items-start">
                               <div class="flex-shrink-0">
                               <!-- Heroicon name: share -->
@@ -72,12 +82,21 @@
                           <h3 class="text-center text-3xl font-semibold text-gray-900 sm:-mx-6" id="tier-growth">Most Goals</h3>
                           <div class="mt-4 flex flex-col items-center justify-center">
                               <img src="{{ $highestGoalScorer->player->detail->photo }}" alt="{{ $highestGoalScorer->player->first_name }} {{ $highestGoalScorer->player->second_name }} Image" />
-                              <span class="mt-2 text-sm text-gray-400">{{ $highestGoalScorer->player->first_name }} {{ $highestGoalScorer->player->second_name }}</span>
                           </div>
                         </div>
                       </div>
                       <div class="border-t-2 border-gray-100 rounded-b-lg pt-10 pb-8 px-6 bg-gray-50 sm:px-10 sm:py-10">
                         <ul role="list" class="space-y-4">
+                          <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                              <!-- Heroicon name: information-circle -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                </svg>
+                            </div>
+                            <p class="ml-3 text-base font-medium text-gray-500">{{ $highestGoalScorer->player->first_name }} {{ $highestGoalScorer->player->second_name }}</p>
+                          </li>
+
                           <li class="flex items-start">
                             <div class="flex-shrink-0">
                               <!-- Heroicon name: globe-alt -->
@@ -121,12 +140,22 @@
                             <h3 class="text-center text-2xl font-medium text-gray-900" id="tier-scale">Most Clean Sheets</h3>
                             <div class="mt-4 flex flex-col items-center justify-center">
                               <img src="{{ $highestCleanSheets->player->detail->photo }}" alt="{{ $highestCleanSheets->player->first_name }} {{ $highestCleanSheets->player->second_name }} Image" />
-                              <span class="mt-2 text-sm text-gray-400">{{ $highestCleanSheets->player->first_name }} {{ $highestCleanSheets->player->second_name }}</span>
                             </div>
                           </div>
                         </div>
                         <div class="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
                           <ul role="list" class="space-y-4">
+
+                              <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                  <!-- Heroicon name: information-circle -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base font-medium text-gray-500">{{ $highestCleanSheets->player->first_name }} {{ $highestCleanSheets->player->second_name }}</p>
+                              </li>
+
                             <li class="flex items-start">
                               <div class="flex-shrink-0">
                               <!-- Heroicon name: bolt -->
@@ -172,7 +201,7 @@
     {{-- Small Stats --}}
     <x-facts.2.container
         title="Top Performers"
-        subheading="Highest expected performing players currently">
+        subheading="Highest expected performing players of the season">
 
           <div>
             <h6>Expected Goals</h6>
@@ -185,8 +214,8 @@
           </div>
 
           <div>
-            <h6>Expected Goals Per 90</h6>
-            <div id="xgp-chart"></div>
+            <h6>Expected Goal Involvements</h6>
+            <div id="gi-chart"></div>
           </div>
 
     </x-facts.2.container>
@@ -286,7 +315,7 @@
         {!! $xa_chart !!}
     }).render();
 
-    new ApexCharts(document.querySelector("#xgp-chart"), {
-        {!! $xgp_chart !!}
+    new ApexCharts(document.querySelector("#gi-chart"), {
+        {!! $gi_chart !!}
     }).render();
 </script>

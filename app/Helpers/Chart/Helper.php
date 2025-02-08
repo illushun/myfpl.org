@@ -62,7 +62,7 @@ class Helper {
             plotOptions: {
                 bar: {
                     borderRadius: 5,
-                    columnWidth: "45%",
+                    columnWidth: "65%",
                     distributed: true,
                     dataLabels: {
                         position: "top",
@@ -122,7 +122,7 @@ class Helper {
                 ->select(['expected_goals', 'player_id'])
                 ->where('gameweek_id', $gameweek_id)
                 ->orderBy('expected_goals', 'desc')
-                ->take(3)
+                ->take(4)
                 ->get();
 
         foreach ($xg_records as $record) {
@@ -150,7 +150,7 @@ class Helper {
                 ->select(['expected_assists', 'player_id'])
                 ->where('gameweek_id', $gameweek_id)
                 ->orderBy('expected_assists', 'desc')
-                ->take(3)
+                ->take(4)
                 ->get();
 
         foreach ($xa_records as $record) {
@@ -169,6 +169,34 @@ class Helper {
         return $return;
     }
 
+    public static function formatExpectedGoalInvolvementsData($gameweek_id): array {
+        $return = [];
+
+        $xgp_data = [];
+        $xgp_records = PlayerXg
+            ::with('player')
+                ->select(['expected_goal_involvements', 'player_id'])
+                ->where('gameweek_id', $gameweek_id)
+                ->orderBy('expected_goal_involvements', 'desc')
+                ->take(4)
+                ->get();
+
+        foreach ($xgp_records as $record) {
+            $xgp_data["labels"][] = $record->player->second_name;
+            $xgp_data["data"][] = (float)$record->expected_goal_involvements;
+        }
+        $xgp_data["data"] = str_replace(['[', ']'], '', json_encode($xgp_data["data"]));
+
+        $return["data"] = "
+            {
+                data: [{$xgp_data['data']}],
+            }
+        ";
+        $return["labels"] = $xgp_data["labels"];
+
+        return $return;
+    }
+
     public static function formatExpectedGoalsPer90Data($gameweek_id): array {
         $return = [];
 
@@ -178,7 +206,7 @@ class Helper {
                 ->select(['expected_goals_per_90', 'player_id'])
                 ->where('gameweek_id', $gameweek_id)
                 ->orderBy('expected_goals_per_90', 'desc')
-                ->take(3)
+                ->take(4)
                 ->get();
 
         foreach ($xgp_records as $record) {
