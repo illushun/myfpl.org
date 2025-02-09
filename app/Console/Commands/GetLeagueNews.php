@@ -44,6 +44,12 @@ class GetLeagueNews extends Command
 
         if (!$news) {
             \Log::info("[GetLeagueNews] Retrieved no news...");
+            return;
+        }
+
+        if (isset($news["success"]) && !$news["success"]) {
+            \Log::info("[GetLeagueNews] " . $news["message"]);
+            return;
         }
 
         foreach ($news as $post) {
