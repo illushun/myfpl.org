@@ -11,6 +11,8 @@ namespace App\Helpers\Chart;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 
+use App\Helpers\FPL\Player\Helper as PlayerHelper;
+
 use App\Models\PlayerXg;
 use App\Models\PlayerStat;
 
@@ -333,8 +335,11 @@ class Helper {
                         ->where('player_id', $record->player->id)
                         ->first();
 
+                $predicted_goals = PlayerHelper::getPredictedGoalsByGameweek38($record->player->id);
+
                 $gs_data[$record->player->web_name]["data"]["actual"] = (int)$record->goals_scored;
                 $gs_data[$record->player->web_name]["data"]["expected"] = (float)$xg_record->expected_goals;
+                $gs_data[$record->player->web_name]["data"]["predicted"] = (int)$predicted_goals;
             }
 
             $return["data"] = '{
@@ -347,14 +352,20 @@ class Helper {
                 $return["data"] .= '{';
                 $return["data"] .= 'x: "' . $name . '",';
                 $return["data"] .= 'y: ' . $data["actual"] . ',';
-                $return["data"] .= 'goals: [{';
-                $return["data"] .= 'name: "XG",';
+                $return["data"] .= 'goals: [';
+                $return["data"] .= '{name: "XG:",';
                 $return["data"] .= 'value: ' . $data["expected"] . ',';
                 $return["data"] .= 'strokeWidth: 5,';
                 $return["data"] .= 'strokeHeight: 10,';
                 $return["data"] .= 'strokeColor: "#4DD37C",';
-                $return["data"] .= '}]';
                 $return["data"] .= '},';
+                $return["data"] .= '{name: "Predicted:",';
+                $return["data"] .= 'value: ' . $data["predicted"] . ',';
+                $return["data"] .= 'strokeWidth: 5,';
+                $return["data"] .= 'strokeHeight: 10,';
+                $return["data"] .= 'strokeColor: "#818CF8",';
+                $return["data"] .= '},';
+                $return["data"] .= ']},';
 
                 $return["labels"][] = $name;
             }
@@ -400,7 +411,7 @@ class Helper {
                 $return["data"] .= 'x: "' . $name . '",';
                 $return["data"] .= 'y: ' . $data["actual"] . ',';
                 $return["data"] .= 'goals: [{';
-                $return["data"] .= 'name: "XA",';
+                $return["data"] .= 'name: "XA:",';
                 $return["data"] .= 'value: ' . $data["expected"] . ',';
                 $return["data"] .= 'strokeWidth: 5,';
                 $return["data"] .= 'strokeHeight: 10,';
