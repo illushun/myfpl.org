@@ -46,7 +46,6 @@ class IndexComponent extends Component
         $this->xg_chart = ChartHelper::makeChart(
             $this->xg_chart,
             $xg_chart_data["data"],
-            ['#002c5a', '#e32118', '#3498db'],
             $xg_chart_data["labels"]
         );
 
@@ -55,7 +54,6 @@ class IndexComponent extends Component
         $this->xa_chart = ChartHelper::makeChart(
             $this->xa_chart,
             $xa_chart_data["data"],
-            ['#002c5a', '#e32118', '#3498db'],
             $xa_chart_data["labels"]
         );
 
@@ -64,7 +62,6 @@ class IndexComponent extends Component
         $this->gi_chart = ChartHelper::makeChart(
             $this->gi_chart,
             $gi_chart_data["data"],
-            ['#002c5a', '#e32118', '#3498db'],
             $gi_chart_data["labels"]
         );
 

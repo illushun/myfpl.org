@@ -200,7 +200,7 @@
 
     {{-- Small Stats --}}
     <x-facts.2.container
-        title="Top Performers"
+        title="Expected Performers"
         subheading="Highest expected performing players of the season">
 
           <div>

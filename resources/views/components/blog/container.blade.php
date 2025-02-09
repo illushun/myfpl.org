@@ -3,7 +3,7 @@
     'subheading' => ''
 ])
 
-<section class="px-4 mx-auto max-w-7xl">
+<section {{ $attributes->merge(['class' => 'px-4 mx-auto max-w-7xl']) }}>
 
     @if ($title && $subheading)
         <h2 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900">{{ $title }}</h2>
