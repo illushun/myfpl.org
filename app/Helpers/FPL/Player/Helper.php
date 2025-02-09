@@ -103,7 +103,7 @@ class Helper {
         $cacheKey = self::_getPlayerKey() . ".PredictedGoals." . $player_id;
         return Cache::remember($cacheKey, self::PLAYER_EXPIRE, function () use ($player_id) {
             $stat_records = PlayerStat
-                ::select(['goals_scored'])
+                ::select(['goals_scored', 'gameweek_id'])
                 ->where('player_id', $player_id)
                 ->orderBy('gameweek_id')
                 ->get();
