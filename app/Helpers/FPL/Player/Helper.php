@@ -16,6 +16,7 @@ use App\Helpers\FPL\Helper as FPLHelper;
 use App\Models\Team;
 use App\Models\Gameweek;
 use App\Models\Player;
+use App\Models\PlayerStat;
 use App\Models\Fixture;
 
 class Helper {
@@ -96,5 +97,47 @@ class Helper {
                 ->join('player_stat', 'player_stat.player_id', '=', 'player.id')
                 ->where('player_stat.points_per_game', '>=', $filters["ppg"])
                 ->get();
+    }
+
+    public static function getPredictedGoalsByGameweek38(int $player_id): mixed {
+        $cacheKey = self::_getPlayerKey() . ".PredictedGoals." . $player_id;
+        return Cache::remember($cacheKey, self::PLAYER_EXPIRE, function () use ($player_id) {
+            $stat_records = PlayerStat
+                ::select(['goals_scored'])
+                ->where('player_id', $player_id)
+                ->orderBy('gameweek_id')
+                ->get();
+
+            if ($stat_records->count() < 2) {
+                // Not enough data to predict
+                // Return current total goals as prediction
+                return $stat_records->last()->goals_scored ?? 0;
+            }
+
+            // calc goals per gameweek by finding the diff
+            // between consecutive gameweeks
+            $goals_per_gameweek = [];
+            for ($i = 1; $i < $stat_records->count(); $i++) {
+                $prev_goals = $stat_records[$i - 1]->goals_scored;
+                $curr_goals = $stat_records[$i]->goals_scored;
+
+                $goals_per_gameweek[] = $curr_goals - $prev_goals;
+            }
+
+            // average goals per gameweek
+            $average_goals_per_gameweek = collect($goals_per_gameweek)->average();
+
+            // get the last recorded gameweek and total goals
+            $last_gameweek = $stat_records->last()->gameweek_id;
+            $curr_total_goals = $stat_records->last()->goals_scored;
+
+            // predict future goals based on remaining gameweeks
+            $remaining_gameweeks = 38 - $last_gameweek;
+
+            $predicted_future_goals = $remaining_gameweeks * $average_goals_per_gameweek;
+
+            // return the predicted total by gameweek 38
+            return $curr_total_goals + $predicted_future_goals;
+        }); 
     }
 }
