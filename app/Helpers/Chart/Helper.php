@@ -396,8 +396,11 @@ class Helper {
                         ->where('player_id', $record->player->id)
                         ->first();
 
+                $predicted_assists = PlayerHelper::getPredictedAssistsByGameweek38($record->player->id);
+
                 $as_data[$record->player->web_name]["data"]["actual"] = (int)$record->assists;
                 $as_data[$record->player->web_name]["data"]["expected"] = (float)$xg_record->expected_assists;
+                $as_data[$record->player->web_name]["data"]["predicted"] = (int)$predicted_assists;
             }
 
             $return["data"] = '{
@@ -410,14 +413,20 @@ class Helper {
                 $return["data"] .= '{';
                 $return["data"] .= 'x: "' . $name . '",';
                 $return["data"] .= 'y: ' . $data["actual"] . ',';
-                $return["data"] .= 'goals: [{';
-                $return["data"] .= 'name: "XA:",';
+                $return["data"] .= 'goals: [';
+                $return["data"] .= '{name: "XA:",';
                 $return["data"] .= 'value: ' . $data["expected"] . ',';
                 $return["data"] .= 'strokeWidth: 5,';
                 $return["data"] .= 'strokeHeight: 10,';
                 $return["data"] .= 'strokeColor: "#4DD37C",';
-                $return["data"] .= '}]';
                 $return["data"] .= '},';
+                $return["data"] .= '{name: "Predicted:",';
+                $return["data"] .= 'value: ' . $data["predicted"] . ',';
+                $return["data"] .= 'strokeWidth: 5,';
+                $return["data"] .= 'strokeHeight: 10,';
+                $return["data"] .= 'strokeColor: "#818CF8",';
+                $return["data"] .= '},';
+                $return["data"] .= ']},';
 
                 $return["labels"][] = $name;
             }

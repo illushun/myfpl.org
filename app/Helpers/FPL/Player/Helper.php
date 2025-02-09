@@ -140,4 +140,46 @@ class Helper {
             return $curr_total_goals + $predicted_future_goals;
         }); 
     }
+
+    public static function getPredictedAssistsByGameweek38(int $player_id): mixed {
+        $cacheKey = self::_getPlayerKey() . ".PredictedAssists." . $player_id;
+        return Cache::remember($cacheKey, self::PLAYER_EXPIRE, function () use ($player_id) {
+            $stat_records = PlayerStat
+                ::select(['assists', 'gameweek_id'])
+                ->where('player_id', $player_id)
+                ->orderBy('gameweek_id')
+                ->get();
+
+            if ($stat_records->count() < 2) {
+                // Not enough data to predict
+                // Return current total assists as prediction
+                return $stat_records->last()->assists ?? 0;
+            }
+
+            // calc assists per gameweek by finding the diff
+            // between consecutive gameweeks
+            $assists_per_gameweek = [];
+            for ($i = 1; $i < $stat_records->count(); $i++) {
+                $prev_assists = $stat_records[$i - 1]->assists;
+                $curr_assists = $stat_records[$i]->assists;
+
+                $assists_per_gameweek[] = $curr_assists - $prev_assists;
+            }
+
+            // average assists per gameweek
+            $average_assists_per_gameweek = collect($assists_per_gameweek)->average();
+
+            // get the last recorded gameweek and total assists
+            $last_gameweek = $stat_records->last()->gameweek_id;
+            $curr_total_assists = $stat_records->last()->assists;
+
+            // predict future assists based on remaining gameweeks
+            $remaining_gameweeks = 38 - $last_gameweek;
+
+            $predicted_future_assists = $remaining_gameweeks * $average_assists_per_gameweek;
+
+            // return the predicted total by gameweek 38
+            return $curr_total_assists + $predicted_future_assists;
+        }); 
+    }
 }
