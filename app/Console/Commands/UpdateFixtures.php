@@ -46,13 +46,13 @@ class UpdateFixtures extends Command
 
         $season = SeasonHelper::getCurrentSeason();
         if (!$season) {
-            \Log::info("[UpdateGameweeks] Unable to get current season");
+            \Log::info("[UpdateFixtures] Unable to get current season");
             return;
         }
 
         $gameweek = GameweekHelper::getCurrentGameweek();
         if (!$gameweek) {
-            \Log::info("[UpdateGameweeks] Unable to get current gameweek");
+            \Log::info("[UpdateFixtures] Unable to get current gameweek");
             return;
         }
 
@@ -63,7 +63,6 @@ class UpdateFixtures extends Command
                     ->first();
 
             if (!$FPLFixture) {
-                \Log::info("[UpdateFixtures] Unable to find fixture ID: " . $fixture["id"]);
                 continue;
             }
 
