@@ -1,314 +1,321 @@
 <div>
-    <div class="relative bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                    <div class="sm:text-center lg:text-left">
-                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                            <span class="block xl:inline">Gain Your Edge in</span>
-                            <span class="block text-indigo-600 xl:inline">Fantasy Premier League</span>
-                        </h1>
-                        <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                            Unlock powerful data insights, predictive analytics, and expert tips to dominate your league. Make smarter decisions and climb to the top of the leaderboard.
-                        </p>
-                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                            <div class="rounded-md shadow">
-                                <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
-                                    Get Started for Free
-                                </a>
+    <x-large-landing />
+
+    {{-- Goals / Assists / Clean Sheets --}}
+    <x-layout.container>
+
+        <div class="mt-16 pb-12 lg:mt-20 lg:pb-20">
+            <div class="relative z-0">
+              <div class="absolute inset-0 h-5/6 lg:h-2/3"></div>
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative lg:grid lg:grid-cols-7">
+
+                  <div class="mx-auto max-w-md lg:mx-0 lg:max-w-none lg:col-start-1 lg:col-end-3 lg:row-start-2 lg:row-end-3">
+                    <div class="h-full flex flex-col rounded-lg shadow-lg overflow-hidden lg:rounded-none lg:rounded-l-lg">
+                      <div class="flex-1 flex flex-col">
+                        <div class="bg-white px-6 py-10">
+                          <div>
+                            <h3 class="text-center text-2xl font-medium text-gray-900" id="tier-hobby">Most Assists</h3>
+                            <div class="mt-4 flex flex-col items-center justify-center">
+                              <img src="{{ $highestAssister->player->detail->photo }}" alt="{{ $highestAssister->player->first_name }} {{ $highestAssister->player->second_name }} Image" />
                             </div>
-                            <div class="mt-3 sm:mt-0 sm:ml-3">
-                                <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
-                                    Live Demo
-                                </a>
-                            </div>
+                          </div>
                         </div>
-                    </div>
-                </main>
-            </div>
-        </div>
-        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e" alt="Football data dashboard">
-        </div>
-    </div>
+                        <div class="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
+                          <ul role="list" class="space-y-4">
 
-    <div class="bg-gray-100">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
-                <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple">
-                </div>
-                <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg" alt="Mirage">
-                </div>
-                <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg" alt="StaticKit">
-                </div>
-                <div class="col-span-1 flex justify-center md:col-span-3 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg" alt="Transistor">
-                </div>
-                <div class="col-span-2 flex justify-center md:col-span-3 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg" alt="Workcation">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center">
-                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Everything you need to win your league
-                </p>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Our platform is packed with features designed to give you a competitive advantage.
-                </p>
-            </div>
-
-            <div class="mt-10">
-                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Advanced Player Stats</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
-                            Go beyond basic stats. Analyze detailed performance data, including expected goals (xG), expected assists (xA), and more.
-                        </dd>
-                    </div>
-
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2z" />
-                                </svg>
-                            </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Predictive Analytics</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
-                            Our algorithms predict future performance, helping you identify undervalued players and make smart transfers before your rivals.
-                        </dd>
-                    </div>
-
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                </svg>
-                            </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Team Insights</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
-                            Analyze team form, fixture difficulty, and tactical tendencies to make informed decisions about your players.
-                        </dd>
-                    </div>
-
-                    <div class="relative">
-                        <dt>
-                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                                </svg>
-                            </div>
-                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Live News and Injury Updates</p>
-                        </dt>
-                        <dd class="mt-2 ml-16 text-base text-gray-500">
-                            Stay ahead of the game with real-time news, injury updates, and press conference summaries.
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-    </div>
-
-    <section class="bg-gray-100 py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center">
-                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Testimonials</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    What our users are saying
-                </p>
-            </div>
-            <div class="mt-12 grid gap-8 lg:grid-cols-3">
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <p class="text-lg text-gray-700">"This platform is a game-changer. The data is incredible and has helped me win my mini-league two years in a row."</p>
-                    <div class="mt-4 flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="">
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-base font-medium text-gray-900">Sarah K.</div>
-                            <div class="text-base text-gray-500">FPL Manager</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <p class="text-lg text-gray-700">"I love the predictive analytics. It's like having a crystal ball for player performance. Highly recommended!"</p>
-                    <div class="mt-4 flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d" alt="">
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-base font-medium text-gray-900">Mike R.</div>
-                            <div class="text-base text-gray-500">Football Analyst</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <p class="text-lg text-gray-700">"The best FPL tool out there. The user interface is so clean and easy to use. I can't imagine playing without it."</p>
-                    <div class="mt-4 flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="">
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-base font-medium text-gray-900">Jessica L.</div>
-                            <div class="text-base text-gray-500">Long-time FPL Player</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="bg-white">
-        <div class="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Pricing</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Choose the plan that's right for you
-                </p>
-            </div>
-
-            <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-2">
-                <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
-                    <div class="p-6">
-                        <h2 class="text-lg leading-6 font-medium text-gray-900">Free</h2>
-                        <p class="mt-4 text-sm text-gray-500">Basic stats for the casual player.</p>
-                        <p class="mt-8">
-                            <span class="text-4xl font-extrabold text-gray-900">$0</span>
-                            <span class="text-base font-medium text-gray-500">/mo</span>
-                        </p>
-                        <a href="#" class="mt-8 block w-full bg-gray-800 border border-gray-800 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-900">Get Started</a>
-                    </div>
-                    <div class="pt-6 pb-8 px-6">
-                        <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">What's included</h3>
-                        <ul class="mt-6 space-y-4">
-                            <li class="flex space-x-3">
-                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="text-sm text-gray-500">Basic player stats</span>
-                            </li>
-                            <li class="flex space-x-3">
-                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="text-sm text-gray-500">Team data</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="border-2 border-indigo-600 rounded-lg shadow-sm divide-y divide-gray-200">
-                    <div class="p-6">
-                        <h2 class="text-lg leading-6 font-medium text-gray-900">Pro</h2>
-                        <p class="mt-4 text-sm text-gray-500">The ultimate toolkit for the serious FPL manager.</p>
-                        <p class="mt-8">
-                            <span class="text-4xl font-extrabold text-gray-900">$10</span>
-                            <span class="text-base font-medium text-gray-500">/mo</span>
-                        </p>
-                        <a href="#" class="mt-8 block w-full bg-indigo-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-700">Sign up for Pro</a>
-                    </div>
-                    <div class="pt-6 pb-8 px-6">
-                        <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">What's included</h3>
-                        <ul class="mt-6 space-y-4">
-                            <li class="flex space-x-3">
-                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="text-sm text-gray-500">All features from Free</span>
-                            </li>
-                            <li class="flex space-x-3">
-                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="text-sm text-gray-500">Predictive analytics</span>
-                            </li>
-                            <li class="flex space-x-3">
-                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="text-sm text-gray-500">Advanced player stats (xG, xA)</span>
-                            </li>
-                            <li class="flex space-x-3">
-                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="text-sm text-gray-500">Fixture difficulty rating</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-gray-50">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto divide-y-2 divide-gray-200">
-                <h2 class="text-center text-3xl font-extrabold text-gray-900 sm:text-4xl">
-                    Frequently asked questions
-                </h2>
-                <dl class="mt-6 space-y-6 divide-y divide-gray-200">
-                    <div class="pt-6">
-                        <dt class="text-lg">
-                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-400">
-                                <span class="font-medium text-gray-900">
-                                    What data sources do you use?
-                                </span>
-                                <span class="ml-6 h-7 flex items-center">
-                                    <svg class="h-6 w-6 transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                              <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                  <!-- Heroicon name: information-circle -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
                                     </svg>
-                                </span>
-                            </button>
-                        </dt>
-                        <dd class="mt-2 pr-12">
-                            <p class="text-base text-gray-500">
-                                We use official data from the Premier League, combined with our own proprietary algorithms to generate our insights.
-                            </p>
-                        </dd>
-                    </div>
-                    </dl>
-            </div>
-        </div>
-    </div>
+                                </div>
+                                <p class="ml-3 text-base font-medium text-gray-500">{{ $highestAssister->player->first_name }} {{ $highestAssister->player->second_name }}</p>
+                              </li>
 
-    <div class="bg-gray-800">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-            <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                <span class="block">Ready to dive in?</span>
-                <span class="block text-indigo-400">Start your free trial today.</span>
-            </h2>
-            <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-                <div class="inline-flex rounded-md shadow">
-                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Get started
-                    </a>
+                            <li class="flex items-start">
+                              <div class="flex-shrink-0">
+                              <!-- Heroicon name: share -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                                </svg>
+                              </div>
+                              <p class="ml-3 text-base font-medium text-gray-500">{{ $highestAssister->assists }} Assist(s)</p>
+                            </li>
+
+                            <li class="flex items-start">
+                              <div class="flex-shrink-0">
+                              <!-- Heroicon name: user-circle -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                              </div>
+                              <p class="ml-3 text-base font-medium text-gray-500">{{ $highestAssister->player->role->singular_name }}</p>
+                            </li>
+
+                            <li class="flex items-start">
+                              <div class="flex-shrink-0">
+                              <!-- Heroicon name: home -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>
+                              </div>
+                              <p class="ml-3 text-base font-medium text-gray-500">{{ $highestAssister->player->detail->team->name }}</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-10 max-w-lg mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-start-3 lg:col-end-6 lg:row-start-1 lg:row-end-4">
+                    <div class="relative z-10 rounded-lg shadow-xl">
+                      <div class="pointer-events-none absolute inset-0 rounded-lg border-2 border-indigo-600" aria-hidden="true"></div>
+                      <div class="absolute inset-x-0 top-0 transform translate-y-px">
+                        <div class="flex justify-center transform -translate-y-1/2">
+                          <span class="inline-flex rounded-full bg-indigo-600 px-4 py-1 text-sm font-semibold tracking-wider uppercase text-white">Golden Boot</span>
+                        </div>
+                      </div>
+                      <div class="bg-white rounded-t-lg px-6 pt-12 pb-10">
+                        <div>
+                          <h3 class="text-center text-3xl font-semibold text-gray-900 sm:-mx-6" id="tier-growth">Most Goals</h3>
+                          <div class="mt-4 flex flex-col items-center justify-center">
+                              <img src="{{ $highestGoalScorer->player->detail->photo }}" alt="{{ $highestGoalScorer->player->first_name }} {{ $highestGoalScorer->player->second_name }} Image" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="border-t-2 border-gray-100 rounded-b-lg pt-10 pb-8 px-6 bg-gray-50 sm:px-10 sm:py-10">
+                        <ul role="list" class="space-y-4">
+                          <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                              <!-- Heroicon name: information-circle -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                </svg>
+                            </div>
+                            <p class="ml-3 text-base font-medium text-gray-500">{{ $highestGoalScorer->player->first_name }} {{ $highestGoalScorer->player->second_name }}</p>
+                          </li>
+
+                          <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                              <!-- Heroicon name: globe-alt -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                                </svg>
+                            </div>
+                            <p class="ml-3 text-base font-medium text-gray-500">{{ $highestGoalScorer->goals_scored }} Goal(s)</p>
+                          </li>
+
+                          <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                              <!-- Heroicon name: user-circle -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </div>
+                            <p class="ml-3 text-base font-medium text-gray-500">{{ $highestGoalScorer->player->role->singular_name }}</p>
+                          </li>
+
+                          <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                              <!-- Heroicon name: home -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>
+                            </div>
+                            <p class="ml-3 text-base font-medium text-gray-500">{{ $highestGoalScorer->player->detail->team->name }}</p>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-10 mx-auto max-w-md lg:m-0 lg:max-w-none lg:col-start-6 lg:col-end-8 lg:row-start-2 lg:row-end-3">
+                    <div class="h-full flex flex-col rounded-lg shadow-lg overflow-hidden lg:rounded-none lg:rounded-r-lg">
+                      <div class="flex-1 flex flex-col">
+                        <div class="bg-white px-6 py-10">
+                          <div>
+                            <h3 class="text-center text-2xl font-medium text-gray-900" id="tier-scale">Most Clean Sheets</h3>
+                            <div class="mt-4 flex flex-col items-center justify-center">
+                              <img src="{{ $highestCleanSheets->player->detail->photo }}" alt="{{ $highestCleanSheets->player->first_name }} {{ $highestCleanSheets->player->second_name }} Image" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
+                          <ul role="list" class="space-y-4">
+
+                              <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                  <!-- Heroicon name: information-circle -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base font-medium text-gray-500">{{ $highestCleanSheets->player->first_name }} {{ $highestCleanSheets->player->second_name }}</p>
+                              </li>
+
+                            <li class="flex items-start">
+                              <div class="flex-shrink-0">
+                              <!-- Heroicon name: bolt -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                                </svg>
+                              </div>
+                              <p class="ml-3 text-base font-medium text-gray-500">{{ $highestCleanSheets->clean_sheets }} Clean Sheet(s)</p>
+                            </li>
+
+                            <li class="flex items-start">
+                              <div class="flex-shrink-0">
+                              <!-- Heroicon name: user-circle -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                              </div>
+                              <p class="ml-3 text-base font-medium text-gray-500">{{ $highestCleanSheets->player->role->singular_name }}</p>
+                            </li>
+
+                            <li class="flex items-start">
+                              <div class="flex-shrink-0">
+                              <!-- Heroicon name: home -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-green-500">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>
+                              </div>
+                              <p class="ml-3 text-base font-medium text-gray-500">{{ $highestCleanSheets->player->detail->team->name }}</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
-                <div class="ml-3 inline-flex rounded-md shadow">
-                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
-                        Contact Sales
-                    </a>
-                </div>
+              </div>
             </div>
-        </div>
+          </div>
+
+    </x-layout.container>
+
+    {{-- Small Stats --}}
+    <x-facts.2.container
+        title="Expected Performers"
+        subheading="Highest expected performing players of the season">
+
+          <div>
+            <h6>Expected Goals</h6>
+            <div id="xg-chart"></div>
+          </div>
+
+          <div>
+            <h6>Expected Assists</h6>
+            <div id="xa-chart"></div>
+          </div>
+
+          <div>
+            <h6>Expected Goal Involvements</h6>
+            <div id="gi-chart"></div>
+          </div>
+
+    </x-facts.2.container>
+
+    <x-layout.container>
+
+        <x-layout.container.title title="Recent News"
+                                  subtitle="The latest news regarding players" />
+
+        <x-blog.container>
+
+            @foreach ($recentNews as $post)
+
+                <x-blog.item
+                    title="{!! $post->headline !!}"
+                    description="{!! $post->description !!}"
+                    image="{!! $post->images[0]->link !!}"
+                    date="{{ date('D d M Y - H:i:s', strtotime($post->created_at)) }}"
+                    link="{!! $post->link !!}"
+                    alt="" />
+
+            @endforeach
+
+        </x-blog.container>
+
+        <x-button.outline-rounded-link-icon text="View All"
+                                            link="{{ route('news.view') }}" />
+
+    </x-layout.container>
+
+
+    {{-- Dream Team --}}
+    <x-layout.container>
+
+        <x-layout.container.title title="Gameweek {{ $gameweek->id }} Dream Team"
+                                  subtitle="The most inform players from the current gameweek" />
+
+        <x-layout.gameweek.grid>
+
+            @foreach ($dreamTeam as $player)
+
+                <x-layout.gameweek.item
+                    title="{!! $player->player->first_name !!} {!! $player->player->second_name !!}"
+                    subheading="{!! $player->player->detail->team->name !!}"
+                    points="{{ $player->points }}"
+                    image="{{ $player->player->detail->photo }}" />
+
+            @endforeach
+
+        </x-layout.gameweek.grid>
+
+    </x-layout.container>
+
+{{-- <footer class="block">
+  <!-- Container -->
+  <div class="py-16 md:py-20 mx-auto w-full max-w-7xl px-5 md:px-10">
+    <!-- Component -->
+    <div class="flex-col flex items-center">
+      <a href="#" class="mb-8 inline-block max-w-full text-black">
+        <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a94d6f4e6cf96_Group%2047874-3.png" alt="" class="inline-block max-h-10" />
+      </a>
+      <div class="text-center font-semibold">
+        <a href="#" class="inline-block px-6 py-2 font-normal text-black transition hover:text-blue-600"> About </a>
+        <a href="#" class="inline-block px-6 py-2 font-normal text-black transition hover:text-blue-600"> Features </a>
+        <a href="#" class="inline-block px-6 py-2 font-normal text-black transition hover:text-blue-600"> Works </a>
+        <a href="#" class="inline-block px-6 py-2 font-normal text-black transition hover:text-blue-600"> Support </a>
+        <a href="#" class="inline-block px-6 py-2 font-normal text-black transition hover:text-blue-600"> Help </a>
+      </div>
+      <div class="mb-8 mt-8 border-b border-gray-300 w-48"></div>
+      <div class="mb-12 grid-cols-4 grid-flow-col grid w-full max-w-52 gap-3">
+        <a href="#" class="mx-auto flex-col flex max-w-6 items-center justify-center text-black">
+          <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a945b4ae6cf7b_Vector-1.svg" alt="" class="inline-block" />
+        </a>
+        <a href="#" class="mx-auto flex-col flex max-w-6 items-center justify-center text-black">
+          <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a945560e6cf77_Vector.svg" alt="" class="inline-block" />
+        </a>
+        <a href="#" class="mx-auto flex-col flex max-w-6 items-center justify-center text-black">
+          <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a940535e6cf7a_Vector-3.svg" alt="" class="inline-block" />
+        </a>
+        <a href="#" class="mx-auto flex-col flex max-w-6 items-center justify-center text-black">
+          <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a9433a9e6cf88_Vector-2.svg" alt="" class="inline-block" />
+        </a>
+      </div>
+      <p class="text-sm sm:text-base"> © Copyright 2024. All rights reserved. </p>
     </div>
+  </div>
+</footer> --}}
+
 </div>
+
+<script>
+    new ApexCharts(document.querySelector("#xg-chart"), {
+        {!! $xg_chart !!}
+    }).render();
+
+    new ApexCharts(document.querySelector("#xa-chart"), {
+        {!! $xa_chart !!}
+    }).render();
+
+    new ApexCharts(document.querySelector("#gi-chart"), {
+        {!! $gi_chart !!}
+    }).render();
+</script>
