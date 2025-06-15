@@ -58,7 +58,7 @@
         gtag('config', 'G-TSGKWQ9HGM');
     </script>
 
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-black">
 
         <x-header.navigation />
 

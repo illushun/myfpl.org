@@ -14,6 +14,9 @@ export default {
             fontFamily: {
                 sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'brand-accent': 'rgb(20 184 166)',
+            },
         },
     },
 

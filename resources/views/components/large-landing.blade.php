@@ -1,22 +1,112 @@
-<div class="relative isolate px-6 pt-14 lg:px-8 bg-cover bg-center bg-no-repeat bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-indigo-500 via-indigo-300 to-indigo-100">
+{{--
+    Large Landing Component - Black Background with Interactive Particles
 
-    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-      <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#6539F5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-    </div>
+    - Replaces the background glow effect with a dynamic particle animation.
+    - Features a solid black background for high contrast.
+    - Particles are interactive and respond to the user's cursor movements.
+    - Call-to-action buttons are styled to be clear and consistent with the site's theme.
+--}}
 
-    <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-      <div class="text-center">
-        <h1 class="text-balance text-5xl font-semibold tracking-tight text-indigo-400 sm:text-7xl">Win with Data.</h1>
-        <p class="mt-8 text-pretty text-lg font-medium text-indigo-300 sm:text-xl/8">Our platform offers stats, predictive tools, and tips to help you improve your Fantasy Premier League picks.</p>
-        <div class="mt-10 flex items-center justify-center gap-x-6">
-        {{-- <a class="inline-flex justify-center whitespace-nowrap rounded-lg px-3.5 py-2.5 text-sm font-medium text-indigo-500 bg-gradient-to-r from-slate-800 to-slate-700 dark:from-slate-200 dark:to-slate-100 dark:hover:bg-slate-100 shadow focus:outline-none focus:ring focus:ring-slate-500/50 focus-visible:outline-none focus-visible:ring focus-visible:ring-slate-500/50 relative before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white/.2)_50%,transparent_75%,transparent_100%)] dark:before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:[transition:background-position_0s_ease] hover:before:bg-[position:-100%_0,0_0] hover:before:duration-[1500ms]" href="./teams">Get Started</a> --}}
+<div class="relative isolate bg-black overflow-hidden">
+
+    <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+    <div class="relative z-10 mx-auto max-w-2xl px-6 py-32 sm:py-48 lg:py-56">
+        <div class="text-center">
+            <h1 class="text-balance text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 sm:text-7xl">
+                Win with Data.
+            </h1>
+            <p class="mt-8 text-pretty text-lg font-normal text-gray-400 sm:text-xl/8">
+                Our platform offers the stats, predictive tools, and insights you need to dominate your Fantasy Premier League season.
+            </p>
+
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+                <a href="#" class="rounded-md bg-teal-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/10 hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500 transition-colors duration-300">
+                    Get Started
+                </a>
+                <a href="#" class="text-sm font-semibold leading-6 text-white hover:text-gray-300 transition-colors">
+                    Learn more <span aria-hidden="true">→</span>
+                </a>
+            </div>
         </div>
-      </div>
     </div>
-
-    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-      <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#6539F5] to-[#FFFFFF] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-
-    </div>
-
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (document.getElementById('particles-js')) {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 100,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#0d9488" // Teal color for particles
+                    },
+                    "shape": {
+                        "type": "circle",
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 0.2,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 2,
+                        "random": true,
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.1, // Faint lines connecting particles
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 0.5, // Slow, drifting movement
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse" // Pushes particles away from the cursor
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push" // Adds a few particles on click
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "repulse": {
+                            "distance": 100, // How far the cursor affects particles
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+    });
+</script>
